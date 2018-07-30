@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+  
+{% block body %}
+<form method="POST" action="{{ url_for('change_form', song_id=t.id) }}">
+  <input type="text" name="name"/>
+  <input type="submit" value="Change the name"/>
+</form>
+{% endblock %}

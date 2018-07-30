@@ -16,9 +16,14 @@ Käyttäjät voivat luoda oman listauksen suosikkilauluistaan. Omaan listaan voi
 * Käyttäjän luominen
 * Kirjautuminen
 * Laulun lisääminen
+* Laulun tietojen muuttaminen
+* Laulun poistaminen
+* Laulujen listaus
 * Artistin lisääminen
 * Laulun lisäys käyttäjän listaan
 * Laulukerran merkitseminen 
+* Laulun poisto käyttäjän listalta
+* Käyttäjän laululistan näyttäminen
 
 [Sovellus Herokussa](https://karaokepal.herokuapp.com/)
 

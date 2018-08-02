@@ -26,6 +26,8 @@ Käyttäjät voivat luoda oman listauksen suosikkilauluistaan. Omaan listaan voi
 * Laulun poisto käyttäjän listalta
 * Käyttäjän laululistan näyttäminen
 
-[Sovellus Herokussa](https://karaokepal.herokuapp.com/)
-[Tietokantakaavio](https://github.com/apndx/Karaokepal/blob/master/documentation/tietokantakaavio.png)
+## Linkit sovellukseen ja dokumentaatioon
+
+* [Sovellus Herokussa](https://karaokepal.herokuapp.com/)
+* [Tietokantakaavio](https://github.com/apndx/Karaokepal/blob/master/documentation/tietokantakaavio.png)
 

@@ -9,6 +9,8 @@ Ohjelmalla on peruskäyttäjiä ja pääkäyttäjiä, pääkäyttäjillä on tä
 
 Palveluun voi lisätä artisteja ja lauluja. Lauluihin voi lisätä kuvauksen ja linkin, jonka takaa löytyy lisätietona esimerkiksi sanat, äänite tai video.
 
+Käyttäjät voivat selata tietokantaan lisättyjä lauluja, niitä voi hakea nimen tai artistin perusteella. Laulut voi myös hakea suosituimmuusjärjestykseen sen mukaan, kuinka monta kertaa käyttäjät ovat laulaneet jotain laulua.
+
 Käyttäjät voivat luoda oman listauksen suosikkilauluistaan. Omaan listaan voi merkitä kun on käynyt laulamassa jotain, ja tästä koostuu tilastotietoa siitä montako kertaa kutakin laulua on laulettu. Käyttäjä voi myös merkitä omaan listaansa laulusta kuvauksen, jota voi muutella tarpeen mukaan.
 
 ## Toimintoja:

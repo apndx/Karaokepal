@@ -1,4 +1,5 @@
 from flask import redirect, render_template, request, url_for
+from flask_login import login_required
 
 from application import app, db
 from application.songs.models import Song
@@ -9,10 +10,12 @@ def songs_index():
     return render_template("songs/list.html", songs = Song.query.all())
 
 @app.route("/songs/new/")
+@login_required
 def songs_form():
     return render_template("songs/new.html", form = SongForm())
 
 @app.route("/songs/<song_id>/", methods=["GET"])
+@login_required
 def songs_change_name(song_id):
 
     t = Song.query.get(song_id)
@@ -21,6 +24,7 @@ def songs_change_name(song_id):
     return render_template("songs/change.html", t=t, form = SongForm() )
 
 @app.route("/songs/<song_id>",  methods=["POST"])
+@login_required
 def change_form(song_id):
 
     # t = Song.query.get(song_id)   
@@ -41,6 +45,7 @@ def change_form(song_id):
 
 
 @app.route("/songs/", methods=["POST"])
+@login_required
 def songs_create():
     form = SongForm(request.form)
     

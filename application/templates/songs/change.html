@@ -2,7 +2,27 @@
   
 {% block body %}
 <form method="POST" action="{{ url_for('change_form', song_id=t.id) }}">
-  <input type="text" name="name"/>
-  <input type="submit" value="Change the name"/>
+  <table>
+      <tr>
+	      <td>
+	        {{ form.name.label }}
+	      </td>
+	      <td>
+	        {{ form.name }}
+	      </td>
+      </tr>
+      <tr>
+          <td>
+            {{ form.description.label }}
+          </td>
+          <td>
+            {{ form.description }}
+          </td>
+              </tr>
+      <tr>
+	      <td colspan="2">   
+            <input type="submit" value="Save changes"/>
+	      </td>
+      </tr>
 </form>
 {% endblock %}

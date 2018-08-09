@@ -42,8 +42,6 @@ def change_form(song_id):
 
     #return render_template("songs/change.html", form = SongForm())
 
-
-
 @app.route("/songs/", methods=["POST"])
 @login_required
 def songs_create():
@@ -58,4 +56,14 @@ def songs_create():
     db.session().add(t)
     db.session().commit()
   
+    return redirect(url_for("songs_index"))
+
+@app.route("/songs/<song_id>", methods=["POST"])
+@login_required
+def song_delete(song_id):
+
+    t = Song.query.get(song_id)
+    db.session().delete(t)
+    db.session().commit()
+
     return redirect(url_for("songs_index"))

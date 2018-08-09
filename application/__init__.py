@@ -14,7 +14,6 @@ else:
 # kertoo, tiedosto sijaitsee tämän sovelluksen tiedostojen kanssa
 # samassa paikassa
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///karaokepal.db"
-
 # Pyydetään SQLAlchemyä tulostamaan kaikki SQL-kyselyt
     app.config["SQLALCHEMY_ECHO"] = True
 
@@ -39,7 +38,7 @@ from application.auth import views
 # Kirjautuminen
 from application.auth.models import User
 from os import urandom
-app.config["SECRET_KEY"] = urandom(32)
+app.config["SECRET_KEY"] = "supersecret" #urandom(32)
 
 from flask_login import LoginManager
 login_manager = LoginManager()

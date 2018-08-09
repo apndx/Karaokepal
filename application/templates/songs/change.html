@@ -24,5 +24,12 @@
             <input type="submit" value="Save changes"/>
 	      </td>
       </tr>
+      <tr>
+        <td>
+          <form method="POST" action="{{ url_for('song_delete', song_id=t.id) }}">
+            <input type="submit" value="Delete"/>
+          </form>
+        </td>
+      </tr> 
 </form>
 {% endblock %}

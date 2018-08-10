@@ -20,17 +20,11 @@ def songs_change_name(song_id):
 
     t = Song.query.get(song_id)
     
-    # return render_template("songs/change.html", t=t ) 
     return render_template("songs/change.html", t=t, form = SongForm() )
 
 @app.route("/songs/<song_id>",  methods=["POST"])
 @login_required
 def change_form(song_id):
-
-    # t = Song.query.get(song_id)   
-    # t.name = request.form.get("name")
-    # db.session().commit()
-    # return redirect(url_for("songs_index"))
 
     form = SongForm(request.form)
     t = Song.query.get(song_id) 
@@ -39,8 +33,6 @@ def change_form(song_id):
     db.session().commit()
      
     return redirect(url_for("songs_index"))
-
-    #return render_template("songs/change.html", form = SongForm())
 
 @app.route("/songs/", methods=["POST"])
 @login_required
@@ -68,10 +60,3 @@ def song_delete(song_id):
 
     return redirect(url_for("songs_index"))
 
-# @app.route("/songs/<song_id>/show/", methods=["GET"])
-# @login_required    
-# def show_song(song_id):
-
-#    form = SongForm(request.form) 
-#    t = Song.query.get(song_id)
-#    return render_template("songs/show.html", t=t, form = SongForm())

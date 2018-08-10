@@ -4,6 +4,14 @@
 <form method="POST" action="{{ url_for('change_form', song_id=t.id) }}">
   <table>
       <tr>
+          <td>
+            {{ t.name }}
+          </td>
+          <td>
+            {{ t.description }}
+          </td>
+              </tr>
+      <tr>
 	      <td>
 	        {{ form.name.label }}
 	      </td>
@@ -13,7 +21,7 @@
       </tr>
       <tr>
           <td>
-            {{ form.description.label }}
+            {{ form.description.label}}
           </td>
           <td>
             {{ form.description }}
@@ -24,12 +32,8 @@
             <input type="submit" value="Save changes"/>
 	      </td>
       </tr>
-      <tr>
-        <td>
-          <form method="POST" action="{{ url_for('song_delete', song_id=t.id) }}">
-            <input type="submit" value="Delete"/>
-          </form>
-        </td>
-      </tr> 
 </form>
+
+
+
 {% endblock %}

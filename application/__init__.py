@@ -1,8 +1,8 @@
-# Tuodaan Flask käyttöön
+# Flask
 from flask import Flask
 app = Flask(__name__)
 
-# Tuodaan SQLAlchemy käyttöön
+# SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
 
 import os
@@ -10,17 +10,11 @@ import os
 if os.environ.get("HEROKU"):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 else:
-# Käytetään karaokepal.db-nimistä SQLite-tietokantaa. Kolme vinoviivaa
-# kertoo, tiedosto sijaitsee tämän sovelluksen tiedostojen kanssa
-# samassa paikassa
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///karaokepal.db"
-# Pyydetään SQLAlchemyä tulostamaan kaikki SQL-kyselyt
     app.config["SQLALCHEMY_ECHO"] = True
 
-# Luodaan db-olio, jota käytetään tietokannan käsittelyyn
 db = SQLAlchemy(app)
 
-# Luetaan kansiosta application tiedoston views sisältö
 from application import views
 
 # Luetaan kansion application kansiosta songs tiedoston models sisältö

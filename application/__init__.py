@@ -17,16 +17,10 @@ db = SQLAlchemy(app)
 
 from application import views
 
-# Luetaan kansion application kansiosta songs tiedoston models sisältö
 from application.songs import models
-
-# Luetaan kansion application kansiosta songs tiedoston views sisältö
 from application.songs import views
 
-# Luetaan kansion application kansiosta auth tiedoston models sisältö
 from application.auth import models 
-
-# Luetaan kansion application kansiosta auth tiedoston views sisältö
 from application.auth import views
 
 # Kirjautuminen

@@ -9,12 +9,7 @@
     {% for song in songs %}
     <tr>
       <td>{{ song.name }}</td>
-      <td><li><a href="{{ url_for('songs_change_name', song_id=song.id) }}">Show</a></li>
-      </td>
-      <td>
-        <form method="POST" action="{{ url_for('song_choose', song_id=song.id) }}">
-          <input type="submit" value="Choose"/>
-        </form>
+      <td><li><a href="{{ url_for('song_choose', song_id=song.id) }}">Show</a></li>
       </td>
       <td>
         <form method="POST" action="{{ url_for('song_delete', song_id=song.id) }}">

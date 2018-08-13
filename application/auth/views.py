@@ -32,14 +32,13 @@ def auth_form():
 
 @app.route("/auth/", methods=["GET","POST"])
 def auth_create():
+    form = UserForm(request.form)
 
     if request.method == "GET":
-        return render_template("auth/newuser.html", form=UserForm())
-
-    form = UserForm(request.form)
-    
+        return render_template("auth/newuser.html", form = form)
+ 
     if not form.validate():
-        return render_template("auth/newuser.html", form=UserForm())                   
+        return render_template("auth/newuser.html", form = form)                   
 
     u = User(form.name.data, form.username.data, form.password.data)
 

@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
   
 {% block body %}
-<form method="POST" action="{{ url_for('change_form', song_id=t.id) }}">
+<form method="POST" action="{{ url_for('change_form', song_id=song.id) }}">
   <table>
       <tr>
           <td>
-            {{ t.name }}
+            {{ song.name }}
           </td>
           <td>
-            {{ t.description }}
+            {{ song.description }}
           </td>
               </tr>
       <tr>

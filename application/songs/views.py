@@ -71,3 +71,29 @@ def song_choose(song_id):
 
     return redirect(url_for("songs_index"))
     #return render_template(url_for("songs/mylist.html"))
+
+@app.route("/songs/mylist/", methods=["GET"])    
+@login_required
+def show_mylist():
+
+    return render_template("songs/mylist.html", mysongs= Song.find_songs_for_current_user(), form = SongForm())
+
+@app.route("/songs/mylist/",  methods=["POST"])     
+@login_required
+def mylist_form():
+
+    form = SongForm()
+    songs = Song.query.get()
+    return redirect(url_for("songs_index")) 
+
+@app.route("/songs/stats/", methods=["GET"]) 
+def show_stats():
+
+     return render_template("songs/stats.html", stat_songs = Song.how_many_have_this(), form = SongForm())
+
+@app.route("/songs/stats/", methods=["POST"])   
+def songs_stats():
+
+    form = SongForm()
+    songs = Song.query.get()
+    return redirect(url_for("songs_index")) 

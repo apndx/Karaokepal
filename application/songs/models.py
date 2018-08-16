@@ -44,7 +44,7 @@ class Song(Base):
                     " GROUP BY Song.name"
                     )
         res = db.engine.execute(stmt)
-  
+
         response = []
         for row in res:
             response.append({"name":row[0], "howmany":row[1]})

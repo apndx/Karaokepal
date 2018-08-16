@@ -29,8 +29,8 @@
                  <a href="{{ url_for('show_mylist') }}"> Hello {{ current_user.name }} ---- Your songs --  </a>
                  <a href="{{ url_for('auth_logout') }}"> -- Logout</a>
                  {% else %}
-                 <a href="{{ url_for('auth_login') }}">Login</a>
-                 <a href="{{ url_for('auth_form') }}">Create a new account</a>
+                 <a href="{{ url_for('auth_login') }}">Login --</a>
+                 <a href="{{ url_for('auth_form') }}">-- Create a new account</a>
           {% endif %}
         </div>
       </div>

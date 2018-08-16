@@ -2,19 +2,26 @@
 
 {% block body %}
 <p>
-  How many users have this song on their list?
+    How many users have this song on their list?
 </p>
+<table>
+    <tr>
+        <th>Song</th>
+        <th>How many</th>
+    </tr>  
 
 {% if stat_songs is defined %}
+<tr>
 
-<ul>
-  {% for song in stat_songs %}
-  <li>
-    {{song.name}} {{song.howmany}}
-  </li>
+{% for song in stat_songs %} 
+
+<td>   {{song.name}} </td> <td> {{song.howmany}} </td> 
+ 
+</tr>
   {% endfor %}
-</ul>
+
 
 {% endif %}
 
+</table>
 {% endblock %}

@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from application import app, db
 from application.songs.models import Song
 from application.songs.forms import SongForm
+from application.artists.models import Artist
 
 @app.route("/songs", methods=["GET"])
 def songs_index():
@@ -28,7 +29,7 @@ def change_form(song_id):
     song = Song.query.get(song_id) 
     form = SongForm(obj=song) #the form will be prefilled with the song 
     
-    song.name = form.name.data
+    song.songname = form.songname.data
     song.description = form.description.data
     db.session().commit()
      
@@ -42,10 +43,21 @@ def songs_create():
     if not form.validate():
         return render_template("songs/new.html", form = form)
 
-    song = Song(form.name.data)
+    song = Song(form.songname.data)
     song.description = form.description.data
 
+    artist = Artist.query.filter_by(artistname=form.artistname.data).first()
+    if not artist:
+        
+        artist = Artist(form.artistname.data)
+
     db.session().add(song)
+    db.session().commit()
+
+    db.session().add(artist)
+    db.session().commit()
+    
+    song.artists.append(artist) # attach artist and song
     db.session().commit()
   
     return redirect(url_for("songs_index"))

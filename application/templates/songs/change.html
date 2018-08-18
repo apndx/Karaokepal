@@ -4,13 +4,13 @@
 <form method="POST" action="{{ url_for('change_form', song_id=song.id) }}">
   <table>
       <tr>
-          <td>
-            {{ song.name }}
-          </td>
-          <td>
-            {{ song.description }}
-          </td>
-              </tr>
+        <td>
+          {{ song.name }}
+        </td>
+        <td>
+          {{ song.description }}
+        </td>
+      </tr>
       <tr>
 	      <td>
 	        {{ form.name.label }}
@@ -20,13 +20,21 @@
 	      </td>
       </tr>
       <tr>
-          <td>
-            {{ form.description.label}}
-          </td>
-          <td>
-            {{ form.description }}
-          </td>
-              </tr>
+        <td>
+          {{ form.description.label}}
+        </td>
+        <td>
+          {{ form.description }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ form.artist.label}}
+        </td>
+        <td>
+          {{ form.artist }}
+        </td>
+      </tr>
       <tr>
 	      <td colspan="2">   
             <input type="submit" value="Save changes"/>

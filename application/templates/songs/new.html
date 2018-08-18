@@ -5,14 +5,14 @@
   <table>
     <tr>
       <td>
-       {{ form.name.label }}
+       {{ form.songname.label }}
       </td>
       <td>
-       {{ form.name }}
+       {{ form.songname }}
       </td>
       <td>
           <ul>
-            {% for error in form.name.errors %}
+            {% for error in form.songname.errors %}
             <li>{{ error }}</li>
             {% endfor %}
           </ul>
@@ -26,7 +26,14 @@
           {{ form.description }}
         </td>
             </tr>
-
+            <tr>
+                <td>
+                  {{ form.artistname.label }}
+                </td>
+                <td>
+                  {{ form.artistname }}
+                </td>
+                    </tr>
     <tr>
       <td colspan="2">
         <input type="submit" value="Add a new song"/>

@@ -34,6 +34,7 @@ Käyttäjät voivat luoda oman listauksen suosikkilauluistaan. Omaan listaan voi
 * [Tietokantakaavio](https://github.com/apndx/Karaokepal/blob/master/documentation/tietokantakaavio.png)
 * [Userstories](https://github.com/apndx/Karaokepal/blob/master/documentation/userstory.md)
 * [Käyttöohje](https://github.com/apndx/Karaokepal/blob/master/documentation/kayttoohje.md)
+* [Asennusohje](https://github.com/apndx/Karaokepal/blob/master/documentation/asennusohje.md)
 
 ## Testikäyttäjät
 

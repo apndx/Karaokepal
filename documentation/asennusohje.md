@@ -62,6 +62,7 @@ $ sudo snap install heroku --classic
 4. Kirjaudu Herokuun
 ```
 $ heroku login
+```
 
 5. Siirry kansioon johon loit paikallisen projektin ja luo siitä Heroku projekti
 ```

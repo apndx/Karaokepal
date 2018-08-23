@@ -2,19 +2,24 @@
 
 {% block body %}
 <p>
-  This is my karaokelist:
-</p>
+    This is your karaokelist:
+  </p>
+
+<table>
+  <tr>
+      <th>Song</th>
+      <th>Description</th>
+  </tr>
 
 {% if mysongs is defined %}
 
-<ul>
   {% for song in mysongs %}
-  <li>
-    {{song.name}} {{song.description}}
-  </li>
+  <tr> 
+    <td>{{song.name}}</td>  <td>{{song.description}}</td>
+  </tr>
   {% endfor %}
-</ul>
 
+</table>
 {% endif %}
 
 {% endblock %}

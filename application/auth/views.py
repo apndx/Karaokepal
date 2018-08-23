@@ -35,14 +35,32 @@ def auth_create():
     form = UserForm(request.form)
 
     if request.method == "GET":
-        return render_template("auth/newuser.html", form = form)
+        return render_template("auth/newuser.html", form = form, user_error="")
  
     if not form.validate():
-        return render_template("auth/newuser.html", form = form)                   
+        return render_template("auth/newuser.html", form = form, user_error="")                   
 
-    u = User(form.name.data, form.username.data, form.password.data)
+    user = User.query.filter_by(username=form.username.data).first()
 
-    db.session().add(u)
+    if user:
+        return render_template("auth/newuser.html", form = form,
+                               user_error = "This username is already in use")
+    if not user:
+        
+        user = User(form.name.data, form.username.data, form.password.data, "basicuser")
+
+    db.session().add(user)
     db.session().commit()
   
     return redirect(url_for("auth_login"))    
+
+@app.route("/admintools/", methods=["GET"])
+def admin_form():
+    return render_template("auth/admintools.html", form=UserForm(), userlist = User.query.all())
+
+@app.route("/admintools/", methods=["GET", "POST"])    
+def admin_tools():
+    form = UserForm(request.form)
+
+    userlist= User.query.all()
+    return redirect(url_for("songs_index")) 

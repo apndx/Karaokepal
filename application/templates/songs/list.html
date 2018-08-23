@@ -4,13 +4,16 @@
   <table>
     <tr>
       <th>Song</th>
+      {% if current_user.is_authenticated %}
       <th>Description</th>
+      {% endif %}
     </tr>
     {% for song in songs %}
     <tr>
       <td>{{ song.songname }}</td>
+      {% if current_user.is_authenticated %}
       <td><a href="{{ url_for('songs_change_name', song_id=song.id) }}">Show</a>
-      </td>
+      </td>     
       <td>
         <form method="POST" action="{{ url_for('song_choose', song_id=song.id) }}">
           <input type="submit" value="Choose"/>
@@ -21,6 +24,7 @@
           <input type="submit" value="Delete"/>
         </form>
       </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </table>

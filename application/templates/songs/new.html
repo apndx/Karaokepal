@@ -25,19 +25,20 @@
         <td>
           {{ form.description }}
         </td>
-            </tr>
-            <tr>
-                <td>
-                  {{ form.artistname.label }}
-                </td>
-                <td>
-                  {{ form.artistname }}
-                </td>
-                    </tr>
+    </tr>
+    <tr>
+        <td>
+          {{ form.artistname.label }}
+        </td>
+        <td>
+          {{ form.artistname }}
+        </td>
+    </tr>
     <tr>
       <td colspan="2">
         <input type="submit" value="Add a new song"/>
       </td>
     </tr>
 </form>
+<p>{{song_error}}</p>
 {% endblock %}

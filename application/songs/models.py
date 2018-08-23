@@ -4,10 +4,10 @@ from application.auth import models
 from sqlalchemy.sql import text
 from flask_login import login_required, current_user
 
-accountsongs =  db.Table('accountsongs',
-    db.Column('song_id', db.Integer, db.ForeignKey('song.id'), primary_key=True),
-    db.Column('account_id', db.Integer, db.ForeignKey('account.id'), primary_key=True)
-)
+# accountsongs =  db.Table('accountsongs',
+#    db.Column('song_id', db.Integer, db.ForeignKey('song.id'), primary_key=True),
+#    db.Column('account_id', db.Integer, db.ForeignKey('account.id'), primary_key=True)
+# )
 
 artistsongs =  db.Table('artistsongs',
     db.Column('song_id', db.Integer, db.ForeignKey('song.id'), primary_key=True),
@@ -21,7 +21,7 @@ class Song(Base):
     songname = db.Column(db.String(144), nullable=False)
     description = db.Column(db.String(1000), nullable=True)
 
-    users = db.relationship('User', secondary=accountsongs, backref=db.backref('songs', lazy=True))
+    users = db.relationship('Accountsongs', cascade='delete', lazy=True)
     artists =  db.relationship('Artist', secondary=artistsongs, backref=db.backref('songs', lazy=True))
 
     def __init__(self, songname):
@@ -57,3 +57,39 @@ class Song(Base):
             response.append({"name":row[0], "howmany":row[1]})
 
         return response
+
+    @staticmethod
+    def find_artist_for_song(song):        
+
+        stmt = text("SELECT Artist.id FROM Artist"
+                    " LEFT JOIN artistsongs ON Artist.id = artistsongs.artist_id "
+                    " LEFT JOIN Song ON Song.id = artistsongs.song_id"
+                    " WHERE Song.id = :cs").params(cs=song.id)
+
+        res = db.engine.execute(stmt)
+
+        response = res.fetchone()[0]
+      
+        return response
+
+class Accountsongs(db.Model):
+    
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'), primary_key=True,
+        nullable=False)
+
+    song_id = db.Column(db.Integer, db.ForeignKey('song.id'), primary_key=True,
+        nullable=False)
+
+    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
+    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
+        onupdate=db.func.current_timestamp())
+
+    modulation = db.Column(db.Integer, nullable=False)
+    count = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(1000), nullable=True)
+
+    def __init__(self, account, song, modulation, count):
+       self.account_id = account.id
+       self.song_id = song.id 
+       self.modulation = 0
+       self.count = 0     

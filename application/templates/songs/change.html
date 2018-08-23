@@ -1,45 +1,46 @@
 {% extends "layout.html" %}
   
 {% block body %}
-<form method="POST" action="{{ url_for('change_form', song_id=song.id) }}">
+<form method="POST" action="{{ url_for('change_form', song_id=song.id, artist=artist) }}">
   <table>
-      <tr>
-        <td>
-          {{ song.name }}
-        </td>
-        <td>
-          {{ song.description }}
-        </td>
-      </tr>
-      <tr>
-	      <td>
-	        {{ form.name.label }}
-	      </td>
-	      <td>
-	        {{ form.name }}
-	      </td>
-      </tr>
-      <tr>
-        <td>
-          {{ form.description.label}}
-        </td>
-        <td>
-          {{ form.description }}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          {{ form.artist.label}}
-        </td>
-        <td>
-          {{ form.artist }}
-        </td>
-      </tr>
-      <tr>
-	      <td colspan="2">   
-            <input type="submit" value="Save changes"/>
-	      </td>
-      </tr>
+    <th>Song</th>
+    <th>Artist</th>
+    <th>Description</th>
+    <tr>
+      <td>
+        {{ song.songname }}
+      </td>
+      <td>
+          {{ artist.artistname }}
+      </td>
+      <td>
+        {{ song.description }}
+      </td>
+    </tr>
+    <tr>
+      <th>Do you want to make changes?</th>
+    </tr>
+    <tr>
+      <td>
+        {{ form.songname.label }}
+      </td>
+	    <td>
+	      {{ form.songname }}
+	    </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.description.label}}
+      </td>
+      <td>
+        {{ form.description }}
+      </td>
+    </tr>
+    <tr>
+	    <td colspan="2">   
+        <input type="submit" value="Save changes"/>
+	    </td>
+    </tr>
 </form>
 
 

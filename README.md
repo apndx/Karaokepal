@@ -33,9 +33,19 @@ Käyttäjät voivat luoda oman listauksen suosikkilauluistaan. Omaan listaan voi
 * [Sovellus Herokussa](https://karaokepal.herokuapp.com/)
 * [Tietokantakaavio](https://github.com/apndx/Karaokepal/blob/master/documentation/tietokantakaavio.png)
 * [Userstories](https://github.com/apndx/Karaokepal/blob/master/documentation/userstory.md)
+* [Käyttöohje](https://github.com/apndx/Karaokepal/blob/master/documentation/kayttoohje.md)
 
-## Testikäyttäjä
+## Testikäyttäjät
+
+## Tavallinen käyttäjä (basicuser)
 
 * Username: elvis
 * Password: test
 * Name: Test Elvis
+
+## Adminkäyttäjä (admin)
+
+* Username: sitrus	
+* Password: sitrus	
+* Name: Sitruuna
+

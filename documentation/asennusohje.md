@@ -84,4 +84,8 @@ $ heroku config:set HEROKU=1
 $ heroku addons:add heroku-postgresql:hobby-dev
 ```
 
-9. Sovellukseen pitää lisätä vielä käsin admin- tunnus, koska suoraan sovelluksessa on mahdollista lisätä 
+9. Sovellukseen pitää lisätä vielä käsin admin- tunnus, koska suoraan sovelluksessa on mahdollista lisätä. Kirjoita herokuprojektisi kansiossa seuraavat käskyt:
+
+
+
+

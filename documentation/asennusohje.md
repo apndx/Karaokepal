@@ -90,6 +90,6 @@ $ heroku addons:add heroku-postgresql:hobby-dev
 $ heroku pg:psql
 $ INSERT INTO account (name, username, password, user_role) VALUES ('nimi', 'tunnus', 'salasana', 'admin');
 $ SELECT * FROM account;
-¤ \q
+$ \q
 
 ```

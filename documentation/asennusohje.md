@@ -84,8 +84,11 @@ $ heroku config:set HEROKU=1
 $ heroku addons:add heroku-postgresql:hobby-dev
 ```
 
-9. Sovellukseen pitää lisätä vielä käsin admin- tunnus, koska suoraan sovelluksessa on mahdollista lisätä. Kirjoita herokuprojektisi kansiossa seuraavat käskyt:
+9. Sovellukseen pitää lisätä vielä käsin admintunnus, koska sovelluksen toimintoja käyttäen on mahdollista lisätä vain peruskäyttäjiä. Kirjoita herokuprojektisi kansiossa seuraavat käskyt (täytä nimi, tunnus ja salasana- kohtiin haluamasi tiedot):
+```
+$ heroku pg:psql
+$ INSERT INTO account (name, username, password, user_role) VALUES ('nimi', 'tunnus', 'salasana', 'admin');
+$ SELECT * FROM account;
+¤ \q
 
-
-
-
+```

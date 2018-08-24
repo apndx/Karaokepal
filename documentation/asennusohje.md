@@ -27,15 +27,24 @@ $ pip install Flask
 $ pip install -r requirements.txt
 ```
 
-8. Nyt sovellus on mahdollista käynnistää seuraavalla komennolla:
+8. Jos sovellukseen haluaa admin -käyttäjän, tulisi se lisätä suoraan tietokantaan koska sovelluksen toimintojen kautta on mahdollista lisätä vain peruskäyttäjiä. Ensin tulisi siirtyä  komentorivillä applications kansioon, sen jälkeen komennot ovat seuraavat (vaihda nimi, tunnus ja salasana kohtiin haluamasi tiedot):
+```
+$ sqlite3 karaokepal.db
+$ INSERT INTO account (name, username, password, user_role) VALUES ('nimi', 'tunnus', 'salasana', 'admin');
+$ SELECT * from account;
+$ .quit
+```
+
+9. Nyt sovellus on mahdollista käynnistää sovelluksen pääkansiosta seuraavalla komennolla:
 ```
 $ python run.py
 ```
 
-9. Nyt pääset käyttämään sovellusta avaamalla selaimella osoitteen http://localhost:5000/
+10. Käynnistyksen jälkeen sovellusta pääsee käyttämään avaamalla selaimeen osoitteen http://localhost:5000/
 
 
 ## Sovelluksen kloonaus
+
 
 1. Kopioi [Github](https://github.com/apndx/Karaokepal) -sivulta "Clone or download" -painikkeen takaa löytyvä linkki.
 
@@ -45,16 +54,16 @@ $ python run.py
 ```
 $ git clone <github sivulta haettu linkki> <nimi kansiolle>
 ```
-4. Seuraa paikallisen asennuksen ohjeiden kohdasta 3. eteenpäin.
+4. Jatka asennusta paikallisen asennuksen ohjeiden kohdasta 3. eteenpäin.
 
 
 ## Sovelluksen asennus Herokuun
 
-1. Sovellus tulisi ensin asentaa paikallisesti
+1. Sovellus tulisi ensin asentaa paikallisesti.
 
 2. Luo käyttäjätunnus Heroku -palveluun, jos sinulla ei vielä ole tunnusta.
 
-3. Asenna koneellesi Herokun komentorivisovellus
+3. Asenna koneellesi Herokun komentorivisovellus:
 ```
 $ sudo snap install heroku --classic
 ```
@@ -64,22 +73,22 @@ $ sudo snap install heroku --classic
 $ heroku login
 ```
 
-5. Siirry kansioon johon loit paikallisen projektin ja luo siitä Heroku projekti
+5. Siirry kansioon johon loit paikallisen projektin ja luo siitä Heroku projekti:
 ```
 $ cd ~/projekti
 $ heroku create haluamasi_nimi_herokussa
 ```
 
-6. Lisää paikalliseen versionhallintaan tieto Herokusta ja lähetä projekti Herokuun
+6. Lisää paikalliseen versionhallintaan tieto Herokusta ja lähetä projekti Herokuun:
 ```
 $ git remote add heroku
 $ git add .
 $ git commit -m "Heroku asennus"
 $ git push heroku master
 ```
-7. Projekti pyörii nyt Herokussa
+7. Projekti pyörii nyt Herokussa.
 
-8. Herokuun tarvitaan vielä PostgreSQL tietokanta, johon tiedot tallennetaan Herokussa
+8. Herokuun tarvitaan vielä PostgreSQL tietokanta, johon tiedot tallennetaan Herokussa:
 ```
 $ heroku config:set HEROKU=1
 $ heroku addons:add heroku-postgresql:hobby-dev

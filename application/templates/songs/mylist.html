@@ -15,11 +15,12 @@
 
   {% for song in mysongs %}
   <tr> 
-    <td>{{song.name}}</td>  <td>{{song.description}}</td>
+    <td>{{song.name}}</td>  
+    <td>{{song.description}}</td>  
   </tr>
   {% endfor %}
 
 </table>
 {% endif %}
-
+<p>{{song_error}}</p>
 {% endblock %}

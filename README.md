@@ -33,8 +33,9 @@ Käyttäjät voivat luoda oman listauksen suosikkilauluistaan. Omaan listaan voi
 * [Sovellus Herokussa](https://karaokepal.herokuapp.com/)
 * [Tietokantakaavio](https://github.com/apndx/Karaokepal/blob/master/documentation/tietokantakaavio.png)
 * [Userstories](https://github.com/apndx/Karaokepal/blob/master/documentation/userstory.md)
-* [Käyttöohje](https://github.com/apndx/Karaokepal/blob/master/documentation/kayttoohje.md)
 * [Asennusohje](https://github.com/apndx/Karaokepal/blob/master/documentation/asennusohje.md)
+* [Käyttöohje](https://github.com/apndx/Karaokepal/blob/master/documentation/kayttoohje.md)
+
 
 ## Testikäyttäjät
 

@@ -1,3 +1,5 @@
+# application/songs/views.py
+
 from flask import redirect, render_template, request, url_for
 from flask_login import current_user
 
@@ -23,13 +25,13 @@ def songs_change_name(song_id):
     artist_id = Song.find_artist_for_song(song)
     artist = Artist.query.get(artist_id)
   
-    return render_template("songs/change.html", song=song, artist = artist, form = SongForm() )
+    return render_template("songs/change.html", song=song, artist = artist, form = SongForm(obj=song) )
 
 @app.route("/songs/<song_id>",  methods=["POST"])
 @login_required(role="ANY")
 def change_form(song_id):
     song = Song.query.get(song_id) 
-    form = SongForm(obj=song) #the form will be prefilled with the song 
+    form = SongForm(obj=song) #the form should be prefilled with the song 
     
     song.songname = form.songname.data
     song.description = form.description.data
@@ -86,14 +88,24 @@ def song_delete(song_id):
 def song_choose(song_id):
 
     song = Song.query.get(song_id)
-    # song.users.append(current_user) # attach user and song
+    #form = SongForm(request.form)
+
+    #if not form.validate():
+    #    return render_template("index.html", form = form, song_error="")
     
+    #accountsong  = Accountsongs.check_if_exists(song, current_user)
+    #accountsong = Accountsongs.query.filter_by(account_id=current_user.id, song_id=song_id)
+
+    #if accountsong:
+    #    return render_template("index.html", form = form, song_error = "You have this song on your list already")
+    
+    #if not accountsong:    
     accountsong = Accountsongs(current_user, song, 0, 0)
     
     db.session().add(accountsong)
     db.session().commit()
 
-    return redirect(url_for("songs_index"))
+    return redirect(url_for("show_mylist"))
     #return render_template(url_for("songs/mylist.html"))
 
 @app.route("/songs/mylist/", methods=["GET"])    

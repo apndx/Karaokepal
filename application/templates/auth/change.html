@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+  
+{% block body %}
+<form method="POST" action="{{ url_for('change_user_form', user_id=user.id) }}">
+  <table>
+    <th>User</th>
+    <th>Username</th>
+    <th>Password</th>
+    <tr>
+      <td>
+        {{ user.name }}
+      </td>
+      <td>
+          {{ user.username }}
+      </td>
+      <td>
+            {{ user.password }}
+        </td>
+    </tr>
+    <tr>
+      <th>Do you want to make changes?</th>
+    </tr>
+    <tr>
+      <td>
+        {{ form.name.label }}
+      </td>
+	    <td>
+	      {{ form.name }}
+	    </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.username.label}}
+      </td>
+      <td>
+        {{ form.username }}
+      </td>
+    </tr>
+</tr>
+<tr>
+  <td>
+    {{ form.password.label}}
+  </td>
+  <td>
+    {{ form.password }}
+  </td>
+</tr>
+    <tr>
+	    <td colspan="2">   
+        <input type="submit" value="Save changes"/>
+	    </td>
+    </tr>
+</form>
+
+
+
+{% endblock %}

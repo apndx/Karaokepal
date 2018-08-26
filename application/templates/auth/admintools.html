@@ -1,20 +1,26 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<p>
-  List of users
-</p>
-
+<table> 
+  <tr>
+    <th> List of users</th>
+  </tr>  
 {% if userlist is defined %}
-
-<ul>
+<tr>
+<th>Name</th><th>Username</th><th>Password</th>
+</tr>
+<tr>
   {% for user in userlist %}
-  <li>
-    {{user.name}} {{user.username}}
-  </li>
-  {% endfor %}
-</ul>
-
+<td> {{user.name}} </td> <td> {{user.username}} </td> <td> {{user.password}} </td>
+<td><a href="{{ url_for('user_change', user_id=user.id) }}">Show</a>
+</td>  
+<td>
+    <form method="POST" action="{{ url_for('user_delete', user_id=user.id) }}">
+      <input type="submit" value="Delete"/>
+    </form>
+  </td> 
+</tr>  
+{% endfor %}
 {% endif %}
-
+</table>
 {% endblock %}

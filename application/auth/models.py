@@ -1,7 +1,10 @@
+# application/auth/models.py
+
 from application import db
 from application.models import Base
 from application.songs import models
 
+# Database model for User 
 class User(Base):
 
     __tablename__ = "account"

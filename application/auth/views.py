@@ -1,17 +1,19 @@
+# application/auth/views.py
+
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user
 
-from application import app, db
+from application import app, db, login_required
 from application.auth.models import User
 from application.auth.forms import LoginForm, UserForm
 
+# Getting and posting the login form
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
     if request.method == "GET":
         return render_template("auth/loginform.html", form = LoginForm())
 
     form = LoginForm(request.form)
-    # mahdolliset validoinnit
 
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
@@ -21,15 +23,18 @@ def auth_login():
     login_user(user)
     return redirect(url_for("index"))  
 
+# Logout
 @app.route("/auth/logout")
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))  
 
+# Getting the newuser form
 @app.route("/auth/newuser",methods = ["GET"])  
 def auth_form():
     return render_template("auth/newuser.html", form=UserForm())
 
+# Creating a new user
 @app.route("/auth/", methods=["GET","POST"])
 def auth_create():
     form = UserForm(request.form)
@@ -54,13 +59,53 @@ def auth_create():
   
     return redirect(url_for("auth_login"))    
 
+# Getting the admintools
 @app.route("/admintools/", methods=["GET"])
 def admin_form():
     return render_template("auth/admintools.html", form=UserForm(), userlist = User.query.all())
 
+# Creating a userlist for admintools
 @app.route("/admintools/", methods=["GET", "POST"])    
+@login_required(role="ANY")
 def admin_tools():
     form = UserForm(request.form)
 
     userlist= User.query.all()
     return redirect(url_for("songs_index")) 
+
+  
+@app.route("/admintools/<user_id>/", methods=["GET"])
+@login_required(role="ANY")
+def user_change(user_id):
+
+    user = User.query.get(user_id)
+
+    return render_template("auth/change.html", user=user,  form= UserForm(obj=user) ) 
+
+@app.route("/admintools/<user_id>", methods=["POST"]) 
+@login_required(role="ANY")
+def change_user_form(user_id):      
+    user = User.query.get(user_id)
+    form = UserForm(obj=user) # the form should be prefilled with data
+
+    user.name = form.name.data # why the validation does not work here?
+    user.username = form.username.data
+    user.password = form.password.data
+
+    db.session().commit()
+
+    return redirect(url_for("admintools")) 
+
+@app.route("/admintools/<user_id>/delete/", methods=["POST"])
+@login_required(role="ANY")
+def user_delete(user_id):
+
+    user = User.query.get(user_id)
+    db.session().delete(user)
+    db.session().commit()    
+
+    return redirect(url_for("admintools")) 
+
+@app.route("/admintools/", methods=["GET"])
+def admintools():
+    return render_template("auth/admintools.html", users = User.query.all())

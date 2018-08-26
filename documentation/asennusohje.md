@@ -8,7 +8,7 @@
 
 3. Pura tiedosto haluamaasi kansioon koneellasi.
 
-4. Seuraavaksi tarvitse komentoriviä: avaa komentorivi kansioon, johon projektin pakkaus on purettu.
+4. Seuraavaksi tarvitset komentoriviä: avaa komentorivi kansioon, johon projektin pakkaus on purettu.
 
 5. Pythonia varten tarvitaan virtuaaliympäristö. Se luodaan ja otetaan käyttöön näillä komennoilla:
 
@@ -27,17 +27,17 @@ $ pip install Flask
 $ pip install -r requirements.txt
 ```
 
-8. Jos sovellukseen haluaa admin -käyttäjän, tulisi se lisätä suoraan tietokantaan koska sovelluksen toimintojen kautta on mahdollista lisätä vain peruskäyttäjiä. Ensin tulisi siirtyä  komentorivillä applications kansioon, sen jälkeen komennot ovat seuraavat (vaihda nimi, tunnus ja salasana kohtiin haluamasi tiedot):
+8. Nyt sovellus on mahdollista käynnistää sovelluksen pääkansiosta seuraavalla komennolla:
+```
+$ python run.py
+```
+
+9. Jos sovellukseen haluaa admin -käyttäjän, tulisi se lisätä suoraan tietokantaan koska sovelluksen toimintojen kautta on mahdollista lisätä vain peruskäyttäjiä. Ensin tulisi siirtyä  komentorivillä applications kansioon, sen jälkeen komennot ovat seuraavat (vaihda nimi, tunnus ja salasana kohtiin haluamasi tiedot):
 ```
 $ sqlite3 karaokepal.db
 $ INSERT INTO account (name, username, password, user_role) VALUES ('nimi', 'tunnus', 'salasana', 'admin');
 $ SELECT * from account;
 $ .quit
-```
-
-9. Nyt sovellus on mahdollista käynnistää sovelluksen pääkansiosta seuraavalla komennolla:
-```
-$ python run.py
 ```
 
 10. Käynnistyksen jälkeen sovellusta pääsee käyttämään avaamalla selaimeen osoitteen http://localhost:5000/

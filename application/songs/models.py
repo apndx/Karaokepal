@@ -1,13 +1,10 @@
+# application/songs/models.py
+
 from application import db
 from application.models import Base
 from application.auth import models
 from sqlalchemy.sql import text
 from flask_login import login_required, current_user
-
-# accountsongs =  db.Table('accountsongs',
-#    db.Column('song_id', db.Integer, db.ForeignKey('song.id'), primary_key=True),
-#    db.Column('account_id', db.Integer, db.ForeignKey('account.id'), primary_key=True)
-# )
 
 artistsongs =  db.Table('artistsongs',
     db.Column('song_id', db.Integer, db.ForeignKey('song.id'), primary_key=True),
@@ -93,3 +90,17 @@ class Accountsongs(db.Model):
        self.song_id = song.id 
        self.modulation = 0
        self.count = 0     
+
+    # For validating in this accountsong already exists
+    # @staticmethod
+    # def check_if_exists(song, user):   
+
+    #     stmt = text("SELECT * FROM Accountsongs"
+    #                 " WHERE accountsongs.account_id = :ai"
+    #                 " AND accountsongs.song_id = :si").params(ai=user.id, si=song.id)
+
+    #     res = db.engine.execute(stmt)
+
+    #     response = res.fetchone()[0]
+      
+    #     return response            

@@ -97,22 +97,24 @@ def song_delete(song_id):
 def song_choose(song_id):
 
     song = Song.query.get(song_id)
-    #form = SongForm(request.form)
+    form = SongForm(request.form)
 
     #if not form.validate():
     #    return render_template("index.html", form = form, song_error="")
     
-    #accountsong  = Accountsongs.check_if_exists(song, current_user)
+    accountsong  = Accountsongs.check_if_exists(song, current_user)
     #accountsong = Accountsongs.query.filter_by(account_id=current_user.id, song_id=song_id)
-
-    #if accountsong:
-    #    return render_template("index.html", form = form, song_error = "You have this song on your list already")
+    print("___________________")
+    print(accountsong)
+    print("___________________")
+    if accountsong:
+        return render_template("index.html", form = form, song_error = "You have this song on your list already")
     
-    #if not accountsong:    
-    accountsong = Accountsongs(current_user, song, 0, 0)
+    if not accountsong:    
+        accountsong = Accountsongs(current_user, song, 0, 0)
     
-    db.session().add(accountsong)
-    db.session().commit()
+        db.session().add(accountsong)
+        db.session().commit()
 
     return redirect(url_for("show_mylist"))
     #return render_template(url_for("songs/mylist.html"))
@@ -142,3 +144,4 @@ def songs_stats():
     form = SongForm()
     songs = Song.query.get()
     return redirect(url_for("songs_index")) 
+

@@ -94,15 +94,18 @@ class Accountsongs(db.Model):
        self.count = 0     
 
     # For validating in this accountsong already exists
-    # @staticmethod
-    # def check_if_exists(song, user):   
+    @staticmethod
+    def check_if_exists(song, user):   
 
-    #     stmt = text("SELECT * FROM Accountsongs"
-    #                 " WHERE accountsongs.account_id = :ai"
-    #                 " AND accountsongs.song_id = :si").params(ai=user.id, si=song.id)
+        stmt = text("SELECT * FROM Accountsongs"
+                     " WHERE accountsongs.account_id = :ai"
+                     " AND accountsongs.song_id = :si").params(ai=user.id, si=song.id)
 
-    #     res = db.engine.execute(stmt)
+        res = db.engine.execute(stmt)
 
-    #     response = res.fetchone()[0]
-      
-    #     return response            
+        response = res.fetchone()
+        
+        if response==None:
+            return False
+        else: 
+            return True          

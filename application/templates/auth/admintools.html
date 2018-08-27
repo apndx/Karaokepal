@@ -7,11 +7,11 @@
   </tr>  
 {% if userlist is defined %}
 <tr>
-<th>Name</th><th>Username</th><th>Password</th>
+<th>Name</th><th>Username</th>
 </tr>
 <tr>
   {% for user in userlist %}
-<td> {{user.name}} </td> <td> {{user.username}} </td> <td> {{user.password}} </td>
+<td> {{user.name}} </td> <td> {{user.username}} </td> 
 <td><a href="{{ url_for('user_change', user_id=user.id) }}">Show</a>
 </td>  
 <td>

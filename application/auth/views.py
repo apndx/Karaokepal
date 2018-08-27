@@ -62,7 +62,7 @@ def auth_create():
 # Getting the admintools
 @app.route("/admintools/", methods=["GET"])
 def admin_form():
-    return render_template("auth/admintools.html", form=UserForm(), userlist = User.query.all())
+    return render_template("auth/admintools.html", form=UserForm(), userlist = User.query.order_by(User.name).all())
 
 # Creating a userlist for admintools
 @app.route("/admintools/", methods=["GET", "POST"])    
@@ -77,16 +77,23 @@ def admin_tools():
 @app.route("/admintools/<user_id>/", methods=["GET"])
 @login_required(role="ANY")
 def user_change(user_id):
-
+    
     user = User.query.get(user_id)
+    form= UserForm(obj=user)
+    
+    if not form.validate():
+        return render_template("auth/change.html", user=user,  form= form )
 
-    return render_template("auth/change.html", user=user,  form= UserForm(obj=user) ) 
+    return render_template("auth/change.html", user=user,  form= form ) 
 
 @app.route("/admintools/<user_id>", methods=["POST"]) 
 @login_required(role="ANY")
 def change_user_form(user_id):      
     user = User.query.get(user_id)
     form = UserForm(obj=user) # the form should be prefilled with data
+
+    if not form.validate():
+        return render_template("auth/change.html", form = form, user=user)
 
     user.name = form.name.data # why the validation does not work here?
     user.username = form.username.data

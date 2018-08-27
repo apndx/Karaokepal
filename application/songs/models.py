@@ -29,7 +29,8 @@ class Song(Base):
 
         stmt = text("SELECT Song.songname, Song.description FROM Song"
                     " LEFT JOIN accountsongs ON Song.id = accountsongs.song_id"
-                    " WHERE accountsongs.account_id = :cu").params(cu=current_user.id)            
+                    " WHERE accountsongs.account_id = :cu"
+                    " ORDER BY Song.songname").params(cu=current_user.id)            
 
         res = db.engine.execute(stmt)
 
@@ -46,6 +47,7 @@ class Song(Base):
                     " WHERE Song.id = accountsongs.song_id"
                     " AND Account.id = accountsongs.account_id"
                     " GROUP BY Song.songname"
+                    " ORDER BY howmany DESC"
                     )
         res = db.engine.execute(stmt)
 

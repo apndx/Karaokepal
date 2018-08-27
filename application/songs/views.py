@@ -5,17 +5,17 @@ from flask_login import current_user
 
 from application import app, db, login_required
 from application.songs.models import Song, Accountsongs
-from application.songs.forms import SongForm
+from application.songs.forms import SongForm, ChangeSongForm
 from application.artists.models import Artist
 
 @app.route("/songs", methods=["GET"])
 def songs_index():
-    return render_template("songs/list.html", songs = Song.query.all())
+    return render_template("songs/list.html", songs = Song.query.order_by(Song.songname).all())
 
 @app.route("/songs/new/")
 @login_required(role="ANY")
 def songs_form():
-    return render_template("songs/new.html", form = SongForm())
+    return render_template("songs/new.html", form = SongForm(), song_error="")
 
 @app.route("/songs/<song_id>/", methods=["GET"])
 @login_required()
@@ -24,15 +24,24 @@ def songs_change_name(song_id):
     song = Song.query.get(song_id)
     artist_id = Song.find_artist_for_song(song)
     artist = Artist.query.get(artist_id)
-  
+    form = ChangeSongForm(obj=song) #the form prefilled with the song
+
+    if not form.validate():
+        return render_template("songs/change.html", song=song, artist = artist, form=form)
+
     return render_template("songs/change.html", song=song, artist = artist, form = SongForm(obj=song) )
 
 @app.route("/songs/<song_id>",  methods=["POST"])
 @login_required(role="ANY")
 def change_form(song_id):
     song = Song.query.get(song_id) 
-    form = SongForm(obj=song) #the form should be prefilled with the song 
+    artist_id = Song.find_artist_for_song(song)
+    artist = Artist.query.get(artist_id)
+    form = ChangeSongForm(obj=song) #the form prefilled with the song 
     
+    if not form.validate():
+        return render_template("songs/change.html", form = form, song=song, artist=artist, song_error="")
+
     song.songname = form.songname.data
     song.description = form.description.data
     db.session().commit()

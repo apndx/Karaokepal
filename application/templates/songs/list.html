@@ -3,10 +3,7 @@
 {% block body %}
   <table>
     <tr>
-      <th>Song</th>
-      {% if current_user.is_authenticated %}
-      <th>Description</th>
-      {% endif %}
+      <th>List of all songs</th>
     </tr>
     {% for song in songs %}
     <tr>

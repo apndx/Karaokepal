@@ -31,12 +31,22 @@ Samoin tehdään tarkistukset olemassaolevista lauluista ja artisteista.
 ```Tiedon hakemisessa käytettyjä SQL-kyselyitä:
 
 
+Kaikkien käyttäjien hakeminen käyttäjien nimen mukaan aakkosjärjestyksessä:
+
+SELECT * FROM Account ORDER BY account.name;
+
+
+Kaikkien laulujen hakeminen laulun nimen mukaan aakkosjärjestyksessä:
+
+SELECT * from Song ORDER BY song.songname;
+
+
 Listaus käyttäjän omista lauluista aakkosjärjestyksessä laulun nimen mukaan:
 
 SELECT Song.songname, Song.description FROM Song
                       LEFT JOIN accountsongs ON Song.id = accountsongs.song_id
-                      WHERE accountsongs.account_id = cu
-                      ORDER BY Song.songname (cu = <parametrinä annettu current_user.id>) 
+                      WHERE accountsongs.account_id = ?
+                      ORDER BY Song.songname (? = <parametrinä annettu current_user.id>) 
 
 
 Laululle etsitään artisti:
@@ -44,7 +54,7 @@ Laululle etsitään artisti:
 SELECT Artist.id FROM Artist
                       LEFT JOIN artistsongs ON Artist.id = artistsongs.artist_id 
                       LEFT JOIN Song ON Song.id = artistsongs.song_id
-                      WHERE Song.id = :cs (cs=<parametrinä annett song.id>)
+                      WHERE Song.id = ? (?=<parametrinä annettu song.id>)
 
 
 Kuinka monella käyttäjällä on valittuna laulu, listaus suosituimmuusjärjestyksessä:
@@ -64,8 +74,11 @@ Sovellukseen voi lisätä peruskäyttäjiä ja lauluja, tiedon lisäys ja lisäy
 Kun sovellus on otettu käyttöön ja käynnistetty ensimmäisen kerran, tulisi siihen lisätä admin -käyttäjä suoraan tietokantaan (nimi, tunnus ja salasana- kohtiin täytetään halutut tiedot):
 
 
-```Adminin lisäys:
+``` Tiedon lisäämistä SQL:llä:
+
+Adminin lisäys:
 INSERT INTO account (name, username, password, user_role) VALUES ('nimi', 'tunnus', 'salasana', 'admin');
+
 ```
 
 3. Tiedon muokkaaminen 
@@ -73,12 +86,27 @@ INSERT INTO account (name, username, password, user_role) VALUES ('nimi', 'tunnu
 Kaikki käyttäjät voivat muokata laulujen nimeä ja kuvausta. Pääkäyttäjät voivat muokata käyttäjien tietoja.
 Tietojen muokkauksessa käytetään jälleen Flaskista löytyviä ominaisuuksia.
 
+``` Tiedon muokkausta SQL:llä:
+
+Muutetaan laulun nimeä ja kuvausta:
+
+UPDATE Song SET songname = '?', description = '?' 
+			WHERE song.id = ?; (? = <parametrinä annettu erikseen nimi, kuvaus ja song.id >)
+
+```
 
 4. Tiedon poistaminen
 
 Kaikki käyttäjät voivat poistaa tietokantaan lisättyjä lauluja voi poistaa laululistauksesta. Pääkäyttäjät voivat poistaa käyttäjiä.
 Tietojen poistoon käytetään Flaskista löytyviä ominaisuuksia.
 
+``` Tiedon poistamista SQL:llä:
+
+Poistetaan tietokannasta laulu:
+
+DELETE FROM Song WHERE song.id = ?; (? = <parametrinä annettu song.id >)
+
+```
 
 5. Kirjautuminen
 

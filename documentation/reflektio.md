@@ -37,3 +37,7 @@ Projektin toteutus tehtiin hyvin kiireisellä aikataululla, käytännössä aika
 Yllämainituista toiminnallisuuksista jäi toteuttamatta laulukerran merkitseminen ja laulun poistaminen käyttäjän listalta. Myös käyttötapauksiin merkityt hakutoiminnallisuudet jäivät haaveeksi.
 
 Ohjelmassa on kuitenkin toimiva runko, ja sitä on helppo halutessaan laajentaa ja kehittää eteenpäin.
+
+## Työn ja sovelluksen rajoitteet
+
+## Työn puuttuvat ominaisuudet 

@@ -99,16 +99,10 @@ def song_choose(song_id):
     song = Song.query.get(song_id)
     form = SongForm(request.form)
 
-    #if not form.validate():
-    #    return render_template("index.html", form = form, song_error="")
-    
     accountsong  = Accountsongs.check_if_exists(song, current_user)
-    #accountsong = Accountsongs.query.filter_by(account_id=current_user.id, song_id=song_id)
-    print("___________________")
-    print(accountsong)
-    print("___________________")
+   
     if accountsong:
-        return render_template("index.html", form = form, song_error = "You have this song on your list already")
+        return render_template("songs/mylist.html", form = form, mysongs= Song.find_songs_for_current_user(), song_error = "You have this song on your list already")
     
     if not accountsong:    
         accountsong = Accountsongs(current_user, song, 0, 0)
@@ -117,7 +111,6 @@ def song_choose(song_id):
         db.session().commit()
 
     return redirect(url_for("show_mylist"))
-    #return render_template(url_for("songs/mylist.html"))
 
 @app.route("/songs/mylist/", methods=["GET"])    
 @login_required(role="ANY")

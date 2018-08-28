@@ -15,7 +15,7 @@ artistsongs =  db.Table('artistsongs',
 class Song(Base):
     # parent left
 
-    songname = db.Column(db.String(144), nullable=False)
+    songname = db.Column(db.String(144), nullable=False, index=True)
     description = db.Column(db.String(1000), nullable=True)
 
     users = db.relationship('Accountsongs', cascade='delete', lazy=True)
@@ -93,7 +93,7 @@ class Accountsongs(db.Model):
        self.modulation = 0
        self.count = 0     
 
-    # For validating in this accountsong already exists
+    # For validating if this accountsong already exists
     @staticmethod
     def check_if_exists(song, user):   
 

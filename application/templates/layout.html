@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
   <head>
     <meta charset="utf-8">
     <title>KaraokePal</title>
@@ -33,12 +33,12 @@
                     <a class="nav-link" style="color: rgb(99, 148, 26)" a href="{{ url_for('show_mylist') }}"> Hello {{ current_user.name }}  --  Your songs  </a>
                     <a class="nav-link" style="color: rgb(99, 148, 26)" a href="{{ url_for('auth_logout') }}"> Logout</a>
                     {% else %}
-                    <a class="nav-link" a href="{{ url_for('show_mylist') }}"> Hello {{ current_user.name }}  --  Your songs  </a>
-                    <a class="nav-link" a href="{{ url_for('auth_logout') }}"> Logout</a>
+                    <a class="nav-link" style="color: rgb(92, 194, 194)" a href="{{ url_for('show_mylist') }}"> Hello {{ current_user.name }}  --  Your songs  </a>
+                    <a class="nav-link" style="color: rgb(92, 194, 194)" a href="{{ url_for('auth_logout') }}"> Logout</a>
                     {% endif %}
                  {% else %}
-                 <a class="nav-link" href ="{{ url_for('auth_login') }}">Login</a>
-                 <a class="nav-link" href="{{ url_for('auth_form') }}">Create a new account</a>
+                 <a class="nav-link" style="color: rgb(159, 161, 161)" href ="{{ url_for('auth_login') }}">Login</a>
+                 <a class="nav-link" style="color: rgb(159, 161, 161)" href="{{ url_for('auth_form') }}">Create a new account</a>
                  {% endif %}
         </div>
       </div>

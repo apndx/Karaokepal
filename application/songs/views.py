@@ -122,8 +122,6 @@ def show_mylist():
 @login_required(role="ANY")
 def mylist_form():
 
-    form = SongForm()
-    songs = Song.query.get()
     return redirect(url_for("songs_index")) 
 
 @app.route("/songs/stats/", methods=["GET"]) 
@@ -134,7 +132,5 @@ def show_stats():
 @app.route("/songs/stats/", methods=["POST"])   
 def songs_stats():
 
-    form = SongForm()
-    songs = Song.query.get()
     return redirect(url_for("songs_index")) 
 

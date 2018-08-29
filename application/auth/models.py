@@ -33,4 +33,8 @@ class User(Base):
         return True
 
     def roles(self):
-        return self.user_role
+
+        if self.user_role == 'admin':
+            return ["ADMIN"]
+        else:
+            return ["BASIC"]

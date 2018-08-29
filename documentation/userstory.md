@@ -59,11 +59,10 @@ SELECT Artist.id FROM Artist
 
 Kuinka monella käyttäjällä on valittuna laulu, listaus suosituimmuusjärjestyksessä:
 
-SELECT Song.songname, COUNT(*) AS howmany FROM accountsongs, Song, Account
-                      WHERE Song.id = accountsongs.song_id
-                      AND Account.id = accountsongs.account_id
-                      GROUP BY Song.songname
-                      ORDER BY howmany DESC
+SELECT Song.songname, COUNT(accountsongs.song_id) AS howmany FROM Song 
+		      LEFT JOIN accountsongs ON  Song.id = accountsongs.song_id 
+		      LEFT JOIN Account ON Account.id = accountsongs.account_id 
+		      GROUP BY Song.songname  ORDER BY howmany DESC;
 
 ```
 

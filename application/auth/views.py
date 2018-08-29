@@ -61,12 +61,13 @@ def auth_create():
 
 # Getting the admintools
 @app.route("/admintools/", methods=["GET"])
+@login_required(role="ADMIN")
 def admin_form():
     return render_template("auth/admintools.html", form=UserForm(), userlist = User.query.order_by(User.name).all())
 
 # Creating a userlist for admintools
 @app.route("/admintools/", methods=["GET", "POST"])    
-@login_required(role="ANY")
+@login_required(role="ADMIN")
 def admin_tools():
     form = UserForm(request.form)
 
@@ -75,7 +76,7 @@ def admin_tools():
 
   
 @app.route("/admintools/<user_id>/", methods=["GET"])
-@login_required(role="ANY")
+@login_required(role="ADMIN")
 def user_change(user_id):
     
     user = User.query.get(user_id)
@@ -87,7 +88,7 @@ def user_change(user_id):
     return render_template("auth/change.html", user=user,  form= form ) 
 
 @app.route("/admintools/<user_id>", methods=["POST"]) 
-@login_required(role="ANY")
+@login_required(role="ADMIN")
 def change_user_form(user_id):      
     user = User.query.get(user_id)
     form = UserForm(obj=user) # the form should be prefilled with data
@@ -104,7 +105,7 @@ def change_user_form(user_id):
     return redirect(url_for("admintools")) 
 
 @app.route("/admintools/<user_id>/delete/", methods=["POST"])
-@login_required(role="ANY")
+@login_required(role="ADMIN")
 def user_delete(user_id):
 
     user = User.query.get(user_id)

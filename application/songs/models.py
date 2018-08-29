@@ -27,16 +27,17 @@ class Song(Base):
     @staticmethod
     def find_songs_for_current_user():
 
-        stmt = text("SELECT Song.songname, Song.description FROM Song"
-                    " LEFT JOIN accountsongs ON Song.id = accountsongs.song_id"
-                    " WHERE accountsongs.account_id = :cu"
-                    " ORDER BY Song.songname").params(cu=current_user.id)            
+        stmt = text("SELECT Song.id, Song.songname, Accountsongs.count, Song.description  FROM Song, Accountsongs"
+                    " WHERE Song.id = Accountsongs.song_id"
+                    " AND Accountsongs.account_id = :cu"
+                    " ORDER BY Song.songname").params(cu=current_user.id) 
 
         res = db.engine.execute(stmt)
 
         response = []
         for row in res:
-            response.append({"name":row[0], "description":row[1]})
+
+            response.append({"id":row[0], "name":row[1], "count":row[2], "description":row[3]})
 
         return response
 
@@ -84,13 +85,13 @@ class Accountsongs(db.Model):
 
     modulation = db.Column(db.Integer, nullable=False)
     count = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.String(1000), nullable=True)
+    owndescription = db.Column(db.String(1000), nullable=True)
 
     def __init__(self, account, song, modulation, count):
        self.account_id = account.id
        self.song_id = song.id 
        self.modulation = 0
-       self.count = 0     
+       self.count = 0  
 
     # For validating if this accountsong already exists
     @staticmethod

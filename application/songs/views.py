@@ -124,6 +124,16 @@ def mylist_form():
 
     return redirect(url_for("songs_index")) 
 
+@app.route("/songs/mylist/<song_id>", methods=["POST"]) 
+@login_required(role="ANY")
+def sing_song(song_id):
+    
+    accountsong = Accountsongs.query.filter_by(song_id=song_id, account_id =current_user.id).first()
+    accountsong.count = accountsong.count + 1 
+    db.session().commit()
+
+    return redirect(url_for("show_mylist"))
+    
 @app.route("/songs/stats/", methods=["GET"]) 
 def show_stats():
 

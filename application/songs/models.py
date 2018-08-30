@@ -24,13 +24,14 @@ class Song(Base):
     def __init__(self, songname):
         self.songname = songname
 
+    # Finds the songs the current user has chosen, the list is sorted by what has been sung most
     @staticmethod
     def find_songs_for_current_user():
-
-        stmt = text("SELECT Song.id, Song.songname, Accountsongs.count, Song.description  FROM Song, Accountsongs"
+        
+        stmt = text("SELECT Song.id, Song.songname, Accountsongs.count, Song.description FROM Song, Accountsongs"
                     " WHERE Song.id = Accountsongs.song_id"
                     " AND Accountsongs.account_id = :cu"
-                    " ORDER BY Song.songname").params(cu=current_user.id) 
+                    " ORDER BY Accountsongs.count DESC").params(cu=current_user.id) 
 
         res = db.engine.execute(stmt)
 
@@ -45,9 +46,9 @@ class Song(Base):
     def how_many_have_this():
 
         stmt = text("SELECT Song.songname, COUNT(accountsongs.song_id) AS howmany FROM Song "
-                    "  LEFT JOIN accountsongs ON Song.id = accountsongs.song_id "
+                    " LEFT JOIN accountsongs ON Song.id = accountsongs.song_id "
                     " LEFT JOIN Account ON Account.id = accountsongs.account_id "
-                    " GROUP BY Song.songname  ORDER BY howmany DESC ")
+                    " GROUP BY Song.id  ORDER BY howmany DESC ")
 
         res = db.engine.execute(stmt)
 
@@ -71,6 +72,21 @@ class Song(Base):
       
         return response
 
+    @staticmethod
+    def check_artistsong(song, artist):          
+        stmt = text("SELECT * FROM artistsongs"
+                     " WHERE artistsongs.artist_id = :ai"
+                     " AND artistsongs.song_id = :si").params(ai=artist.id, si=song.id)
+
+        res = db.engine.execute(stmt)
+
+        response = res.fetchone()
+        
+        if response==None:
+            return False
+        else: 
+            return True 
+
 class Accountsongs(db.Model):
     
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), primary_key=True,
@@ -90,8 +106,8 @@ class Accountsongs(db.Model):
     def __init__(self, account, song, modulation, count):
        self.account_id = account.id
        self.song_id = song.id 
-       self.modulation = 0
-       self.count = 0  
+       self.modulation = 0 # this tells if this song should be modulated (if the key is too high or low)
+       self.count = 0 # this tells how many times a user has sung this song
 
     # For validating if this accountsong already exists
     @staticmethod
@@ -109,3 +125,4 @@ class Accountsongs(db.Model):
             return False
         else: 
             return True          
+

@@ -69,9 +69,9 @@ def admin_form():
 @app.route("/admintools/", methods=["GET", "POST"])    
 @login_required(role="ADMIN")
 def admin_tools():
-    form = UserForm(request.form)
+    #form = UserForm(request.form)
 
-    userlist= User.query.all()
+    #userlist= User.query.all()
     return redirect(url_for("songs_index")) 
 
   
@@ -83,7 +83,7 @@ def user_change(user_id):
     form= UserForm(obj=user)
     
     if not form.validate():
-        return render_template("auth/change.html", user=user,  form= form )
+        return render_template("auth/change.html", user=user,  form= form, user_error="" )
 
     return render_template("auth/change.html", user=user,  form= form ) 
 
@@ -96,8 +96,7 @@ def change_user_form(user_id):
     if not form.validate():
         return render_template("auth/change.html", form = form, user=user)
 
-    user.name = form.name.data # why the validation does not work here?
-    user.username = form.username.data
+    user.name = form.name.data
     user.password = form.password.data
 
     db.session().commit()

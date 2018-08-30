@@ -8,10 +8,10 @@ Peruskäyttäjänä
 * Haluan selata tietokannasta löytyviä lauluja - Toteutettu
 * Haluan saada listauksen valitsemistani lauluista - Toteutettu
 * Haluan, että lauluja ja artisteja voi lisätä jos suosikkini ei ole vielä listalla mukana - Toteutettu
+* Haluan pitää kirjaa siitä, kuinka monta kertaa lauluja on laulettu - Toteutettu
+* Haluan voida tehdä listauksen lauluistani niin, että laulut on järjestetty sen mukaan, mitä on laulettu eniten tai vähiten - Toteutettu
 
 * Haluan pystyä etsimään lauluja karaokelistaani sekä nimen, artistin että suosituimpien laulujen perusteella - Kesken
-* Haluan nähdä tilastotietoja lauluista, joita olen laulanut - Kesken
-* Haluan voida tehdä listauksen lauluistani niin, että laulut on järjestetty sen mukaan, mitä on laulettu eniten tai vähiten - Kesken
 
 
 Pääkäyttäjänä
@@ -23,9 +23,7 @@ Pääkäyttäjänä
 
 1. Tiedon selaaminen
 
-Listaukset kaikista lauluista ja käyttäjistä tehdään aakkosjärjestyksessä nimen mukaan käyttäen valmiita query-metodeja.
-Samoin tehdään tarkistukset olemassaolevista lauluista ja artisteista.
-
+Listaukset kaikista lauluista ja käyttäjistä tehdään aakkosjärjestyksessä nimen mukaan käyttäen valmiita query-metodeja. Samoin tehdään tarkistukset olemassaolevista lauluista ja artisteista, ettei niitä lisätessä synny duplikaatteja.
 
 
 ```Tiedon hakemisessa käytettyjä SQL-kyselyitä:
@@ -41,12 +39,12 @@ Kaikkien laulujen hakeminen laulun nimen mukaan aakkosjärjestyksessä:
 SELECT * from Song ORDER BY song.songname;
 
 
-Listaus käyttäjän omista lauluista aakkosjärjestyksessä laulun nimen mukaan:
+Listaus käyttäjän omista lauluista järjestettynä laulamiskertojen mukaan:
 
-SELECT Song.songname, Song.description FROM Song
-                      LEFT JOIN accountsongs ON Song.id = accountsongs.song_id
-                      WHERE accountsongs.account_id = ?
-                      ORDER BY Song.songname (? = <parametrinä annettu current_user.id>) 
+SELECT Song.id, Song.songname, Accountsongs.count, Song.description FROM Song, Accountsongs
+                      WHERE Song.id = Accountsongs.song_id
+                      AND Accountsongs.account_id = ?
+                      ORDER BY Accountsongs.count DESC (?=<parametrinä annettu account.id>
 
 
 Laululle etsitään artisti:
@@ -60,9 +58,9 @@ SELECT Artist.id FROM Artist
 Kuinka monella käyttäjällä on valittuna laulu, listaus suosituimmuusjärjestyksessä:
 
 SELECT Song.songname, COUNT(accountsongs.song_id) AS howmany FROM Song 
-		      LEFT JOIN accountsongs ON  Song.id = accountsongs.song_id 
+		      LEFT JOIN accountsongs ON Song.id = accountsongs.song_id 
 		      LEFT JOIN Account ON Account.id = accountsongs.account_id 
-		      GROUP BY Song.songname  ORDER BY howmany DESC;
+		      GROUP BY Song.id ORDER BY howmany DESC;
 
 ```
 
@@ -96,8 +94,7 @@ UPDATE Song SET songname = '?', description = '?'
 
 4. Tiedon poistaminen
 
-Kaikki käyttäjät voivat poistaa tietokantaan lisättyjä lauluja voi poistaa laululistauksesta. Pääkäyttäjät voivat poistaa käyttäjiä.
-Tietojen poistoon käytetään Flaskista löytyviä ominaisuuksia.
+Kaikki käyttäjät voivat poistaa tietokantaan lisättyjä lauluja laululistauksesta. Pääkäyttäjät voivat poistaa käyttäjiä. Tietojen poistoon käytetään Flaskista löytyviä ominaisuuksia.
 
 ``` Tiedon poistamista SQL:llä:
 
@@ -109,9 +106,64 @@ DELETE FROM Song WHERE song.id = ?; (? = <parametrinä annettu song.id >)
 
 5. Kirjautuminen
 
-Käyttäjät voivat kirjautua sovellukseen. Sovelluksen näkymä muuttuu sen mukaan, onko kirjauduttu ollenkaan, tai onko kirjautuja admin vai peruskäyttäjä. Kirjautuminen on toteutettu Flaskin ominaisuuksilla.
+Käyttäjät voivat kirjautua sovellukseen. Sovelluksen näkymä muuttuu sen mukaan, onko kirjauduttu ollenkaan, tai onko kirjautuja admin vai peruskäyttäjä. Kirjautuminen on toteutettu Flaskin ominaisuuksilla. Toiminnot on myös autorisoitu niin, että niihin ei pääse käsiksi myöskään suorasta osoitteesta ilman oikean tyyppistä kirjatumista.
+
+## Tietokantataulujen luontilauseet
+
+Tilastosivulla käytettävissä tiedoissa on indeksointi (laulun nimi, artistin nimi)
 
 
+CREATE TABLE song (
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	songname VARCHAR(144) NOT NULL, 
+	description VARCHAR(1000), 
+	PRIMARY KEY (id)
+);
+
+CREATE INDEX ix_song_songname ON song (songname);
+CREATE TABLE artist (
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	artistname VARCHAR(144) NOT NULL, 
+	description VARCHAR(1000), 
+	PRIMARY KEY (id)
+);
+
+CREATE INDEX ix_artist_artistname ON artist (artistname);
+CREATE TABLE account (
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	name VARCHAR(144) NOT NULL, 
+	username VARCHAR(144) NOT NULL, 
+	password VARCHAR(144) NOT NULL, 
+	user_role VARCHAR(20) NOT NULL, 
+	PRIMARY KEY (id), 
+	UNIQUE (username)
+);
+
+CREATE TABLE accountsongs (
+	account_id INTEGER NOT NULL, 
+	song_id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	modulation INTEGER NOT NULL, 
+	count INTEGER NOT NULL, 
+	owndescription VARCHAR(1000), 
+	PRIMARY KEY (account_id, song_id), 
+	FOREIGN KEY(account_id) REFERENCES account (id), 
+	FOREIGN KEY(song_id) REFERENCES song (id)
+);
+CREATE TABLE artistsongs (
+	song_id INTEGER NOT NULL, 
+	artist_id INTEGER NOT NULL, 
+	PRIMARY KEY (song_id, artist_id), 
+	FOREIGN KEY(song_id) REFERENCES song (id), 
+	FOREIGN KEY(artist_id) REFERENCES artist (id)
+);
 
 
 

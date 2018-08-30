@@ -6,22 +6,22 @@
     <th>User</th>
     <th>Username</th>
     <tr>
-      <td>
+        <td>
         {{ user.name }}
-      </td>
-      <td>
-          {{ user.username }}
-      </td>
+        </td>
+        <td>
+        {{ user.username }}
+        </td>
     </tr>
     <tr>
-      <th>Do you want to make changes?</th>
+        <th>Do you want to make changes?</th>
     </tr>
     <tr>
-      <td>
+        <td>
         {{ form.name.label }}
-      </td>
+        </td>
 	    <td>
-	      {{ form.name }}
+	    {{ form.name }}
         </td>
         <td>
             <ul>
@@ -32,36 +32,20 @@
         </td>
     </tr>
     <tr>
-      <td>
-        {{ form.username.label}}
-      </td>
-      <td>
-        {{ form.username }}
-      </td>
-      <td>
+        <td>
+        {{ form.password.label}}
+        </td>
+        <td>
+        {{ form.password }}
+        </td>
+        <td>
             <ul>
-                {% for error in form.username.errors %}
+                {% for error in form.password.errors %}
                 <li>{{ error }}</li>
                 {% endfor %}
             </ul>
         </td>
     </tr>
-</tr>
-<tr>
-  <td>
-    {{ form.password.label}}
-  </td>
-  <td>
-    {{ form.password }}
-  </td>
-  <td>
-        <ul>
-            {% for error in form.password.errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    </td>
-</tr>
     <tr>
 	    <td colspan="2">   
         <input type="submit" value="Save changes"/>

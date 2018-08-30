@@ -45,16 +45,18 @@ class Song(Base):
     @staticmethod
     def how_many_have_this():
 
-        stmt = text("SELECT Song.songname, COUNT(accountsongs.song_id) AS howmany FROM Song "
-                    " LEFT JOIN accountsongs ON Song.id = accountsongs.song_id "
+        stmt = text("SELECT Song.songname, Artist.artistname, COUNT(DISTINCT account.id) AS howmany FROM Song"
+                    " LEFT JOIN Accountsongs ON Song.id = accountsongs.song_id "
+                    " LEFT JOIN artistsongs ON artistsongs.song_id = Song.id"
+                    " LEFT JOIN Artist ON Artist.id = artistsongs.artist_id"
                     " LEFT JOIN Account ON Account.id = accountsongs.account_id "
-                    " GROUP BY Song.id  ORDER BY howmany DESC ")
+                    " GROUP BY Song.id ORDER BY howmany DESC ")
 
         res = db.engine.execute(stmt)
 
         response = []
         for row in res:
-            response.append({"name":row[0], "howmany":row[1]})
+            response.append({"name":row[0], "artist":row[1], "howmany":row[2]})
 
         return response
 
@@ -73,6 +75,22 @@ class Song(Base):
         return response
 
     @staticmethod
+    def list_songs_with_artistname():
+
+        stmt = text("SELECT Song.id, Song.songname, Artist.artistname FROM Song"
+                    " LEFT JOIN artistsongs ON Song.id = artistsongs.song_id "
+                    " LEFT JOIN Artist ON Artist.id = artistsongs.artist_id"
+                    " ORDER BY Song.songname")
+
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0], "songname":row[1], "artistname":row[2]})
+
+        return response            
+
+    @staticmethod
     def check_artistsong(song, artist):          
         stmt = text("SELECT * FROM artistsongs"
                      " WHERE artistsongs.artist_id = :ai"
@@ -86,6 +104,16 @@ class Song(Base):
             return False
         else: 
             return True 
+
+    # this method is for adding a new song to the database
+    @staticmethod
+    def new_song_dbs(song, artist):
+        db.session().add(song)
+        db.session().commit()
+        db.session().add(artist)
+        db.session().commit()    
+        song.artists.append(artist) # attach artist and song
+        db.session().commit()
 
 class Accountsongs(db.Model):
     

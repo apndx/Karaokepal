@@ -10,7 +10,9 @@ from application.artists.models import Artist
 
 @app.route("/songs", methods=["GET"])
 def songs_index():
-    return render_template("songs/list.html", songs = Song.query.order_by(Song.songname).all())
+
+    #return render_template("songs/list.html", songs = Song.query.order_by(Song.songname).all())
+    return render_template("songs/list.html", songs = Song.list_songs_with_artistname())
 
 @app.route("/songs/new/")
 @login_required(role="ANY")
@@ -61,20 +63,14 @@ def songs_create():
 
     if song and artist:
         artistsong = Song.check_artistsong(song, artist)
-        print(artistsong)
+        
         if artistsong:
             return render_template("songs/new.html", form = form,    
                                     song_error = "This song has been added already")
 
         else:
             song = Song(form.songname.data)
-            
-            db.session().add(song)
-            db.session().commit()
-            db.session().add(artist)
-            db.session().commit()
-            song.artists.append(artist) # attach artist and song
-            db.session().commit()
+            Song.new_song_dbs(song, artist)
 
             return redirect(url_for("songs_index"))  
 
@@ -84,13 +80,7 @@ def songs_create():
 
         artist = Artist(form.artistname.data)
 
-        db.session().add(song)
-        db.session().commit()
-        db.session().add(artist)
-        db.session().commit()
-        
-        song.artists.append(artist) # attach artist and song
-        db.session().commit()
+        Song.new_song_dbs(song, artist)
 
         return redirect(url_for("songs_index"))
             
@@ -100,30 +90,18 @@ def songs_create():
         song.description = form.description.data
 
         if artist: 
-            db.session().add(song)
-            db.session().commit()
-            db.session().add(artist)
-            db.session().commit()
-            song.artists.append(artist) # attach artist and song
-            db.session().commit()
 
+            Song.new_song_dbs(song, artist)
             return redirect(url_for("songs_index"))
 
         if not artist:
 
             artist = Artist(form.artistname.data)
-
-            db.session().add(song)
-            db.session().commit()
-            db.session().add(artist)
-            db.session().commit()
-            
-            song.artists.append(artist) # attach artist and song
-            db.session().commit()
-
+            Song.new_song_dbs(song, artist)
             return redirect(url_for("songs_index"))
     
     return redirect(url_for("songs_index"))
+
 
 @app.route("/songs/<song_id>/delete/", methods=["POST"])
 @login_required(role="ANY")

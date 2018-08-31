@@ -53,6 +53,12 @@ class Song(Base):
                         " LEFT JOIN Account ON Account.id = accountsongs.account_id "
                         " GROUP BY Song.id  ORDER BY howmany DESC ")
 
+            res = db.engine.execute(stmt)
+            response = []
+            for row in res:
+                response.append({"name":row[0], "howmany":row[1]})
+
+
         else:    
 
             stmt = text("SELECT Song.songname, Artist.artistname, COUNT(DISTINCT account.id) FROM Song"
@@ -62,11 +68,10 @@ class Song(Base):
                             " LEFT JOIN Account ON Account.id = accountsongs.account_id "
                             " GROUP BY Song.id ORDER BY COUNT(DISTINCT account.id) DESC ")
 
-        res = db.engine.execute(stmt)
-
-        response = []
-        for row in res:
-            response.append({"name":row[0], "artist":row[1], "howmany":row[2]})
+            res = db.engine.execute(stmt)
+            response = []
+            for row in res:
+                response.append({"name":row[0], "artist":row[1], "howmany":row[2]})
 
         return response
 

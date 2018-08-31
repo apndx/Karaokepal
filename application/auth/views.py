@@ -69,11 +69,8 @@ def admin_form():
 @app.route("/admintools/", methods=["GET", "POST"])    
 @login_required(role="ADMIN")
 def admin_tools():
-    #form = UserForm(request.form)
 
-    #userlist= User.query.all()
     return redirect(url_for("songs_index")) 
-
   
 @app.route("/admintools/<user_id>/", methods=["GET"])
 @login_required(role="ADMIN")
@@ -87,11 +84,12 @@ def user_change(user_id):
 
     return render_template("auth/change.html", user=user,  form= form ) 
 
+# Admin can change the name and the password for the user
 @app.route("/admintools/<user_id>", methods=["POST"]) 
 @login_required(role="ADMIN")
 def change_user_form(user_id):      
     user = User.query.get(user_id)
-    form = UserForm(obj=user) # the form should be prefilled with data
+    form = UserForm(obj=user) # the form is prefilled with data
 
     if not form.validate():
         return render_template("auth/change.html", form = form, user=user)
@@ -103,11 +101,18 @@ def change_user_form(user_id):
 
     return redirect(url_for("admintools")) 
 
+# Admin can delete a user
 @app.route("/admintools/<user_id>/delete/", methods=["POST"])
 @login_required(role="ADMIN")
 def user_delete(user_id):
 
     user = User.query.get(user_id)
+    form = UserForm(obj=user) # the form is prefilled with data
+
+    if user == current_user:
+        return render_template("auth/admintools.html", users = User.query.all(), form=form,
+                               user_error = "You cannot remove your own account")
+
     db.session().delete(user)
     db.session().commit()    
 
@@ -118,6 +123,7 @@ def user_delete(user_id):
 def admintools():
     return render_template("auth/admintools.html", users = User.query.all())
 
+# Admin can change the status of a user
 @app.route("/admintools/<user_id>/status/", methods=["GET","POST"])
 @login_required(role="ADMIN")
 def change_user_status(user_id):

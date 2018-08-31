@@ -140,17 +140,20 @@ Käyttäjät voivat kirjautua sovellukseen. Sovelluksen näkymä muuttuu sen muk
 
 ## Tietokantataulut
 
-Tilastosivulla käytettävissä tiedoissa on tietokanna indeksointi (laulun nimi, artistin nimi)
+Tilastosivulla käytettävissä tiedoissa on tietokannan indeksointi (laulun nimi, artistin nimi).
 Tauluihin on toteutettu toimintoja seuraavasti (Create, Read, Update, Delete):
 
+```
 Song - CRUD
 Artist - CR
 Account - CRUD
 Accountsong - CU (näistä saa myös listauksen käyttäjäkohtaisesti)
 Artistsong - CRD (poisto tapahtuu song poiston yhteydessä)
+```
 
 ## Luotilauseet
 
+```
 CREATE TABLE song (
 	id INTEGER NOT NULL, 
 	date_created DATETIME, 
@@ -205,7 +208,7 @@ CREATE TABLE artistsongs (
 	FOREIGN KEY(song_id) REFERENCES song (id), 
 	FOREIGN KEY(artist_id) REFERENCES artist (id)
 );
-
+```
 
 
 

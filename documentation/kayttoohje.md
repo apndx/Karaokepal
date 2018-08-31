@@ -22,7 +22,7 @@ Kun käyttäjätunnus on luotu, voi sovellukseen kirjautua kirjautumissivun kaut
 
 ## Kaikkien tietokannan laulujen listaus
 
-Jos käyttäjä on kirjautunut, näytetään kuvan mukainen laululistaus, muuten listataan ainoastaan laulun nimet. Laulun nimen perässä on linkki, josta pääsee tarkastelemaan laulun tietoja tarkemmin, sekä muokkaamaan laulun nimeä ja kuvausta. Add to my list- napista laulun voi valita omaan laululistaan ja delete napista (joka löytyy vain pää käyttäjän näkymässä) voi poistaa laulun kokonaan tietokannasta.
+Jos käyttäjä on kirjautunut, näytetään kuvan mukainen laululistaus, muuten listataan ainoastaan laulun nimet. Laulun nimen perässä on linkki, josta pääsee tarkastelemaan laulun tietoja tarkemmin, sekä muokkaamaan laulun nimeä ja kuvausta. Add to my list- napista laulun voi valita omaan laululistaan ja delete napista (joka löytyy vain pääkäyttäjän näkymässä) voi poistaa laulun kokonaan tietokannasta.
 
 <img src="https://github.com/apndx/Karaokepal/blob/master/documentation/songlist.jpg" width="600">
 
@@ -46,13 +46,24 @@ Kirjautunut käyttäjä pääsee linkistä "Your songs" listaukseen, jossa lista
 
 ## Tilastotiedot
 
-Kaikki käyttäjät pääsevät etusivulta linkistä "Statistic" löytyvään tilastotietolistaukseen. Tällä hetkellä tilastosivulta näkyy listaus lauluista, joita käyttäjät ovat valinneet, sekä lukumäärä kuinka monelta käyttäjältä laulu löytyy.
+Kaikki käyttäjät pääsevät etusivulta linkistä "Statistic" löytyvään tilastotietolistaukseen. Tilastosivulta näkyy listaus lauluista, joita käyttäjät ovat valinneet, sekä lukumäärä kuinka monelta käyttäjältä laulu löytyy.
 
 <img src="https://github.com/apndx/Karaokepal/blob/master/documentation/stats.jpg" width="600">
 
 ## Adminin työkalut
 
-Jos käyttäjällä on adminoikeudet, näkyy hänelle yläpalkissa linkki "Admin tools". Tällä hetkellä tämän linkin takaa näkyy listaus sovelluksen käyttäjistä ja heidän käyttäjätunnuksistaan.
+Jos käyttäjällä on adminoikeudet, näkyy hänelle yläpalkissa linkki "Admin tools". Linkin takaa näkyy listaus sovelluksen käyttäjistä ja heidän käyttäjätunnuksistaan. Tässä näkymässä voi muuttaa käyttäjien käyttäjäroolia, tai valita käyttäjän jonka tietoja halutaan muuttaa.
 
 <img src="https://github.com/apndx/Karaokepal/blob/master/documentation/admintools.jpg" width="600">
+
+## Käyttäjän tietojen muutos
+
+Käyttäjän nimeä ja salasanaa on mahdollista muokata kirjoittamalla halutut tiedot lomakkeelle ja painamalla "Save changes".
+
+<img src="https://github.com/apndx/Karaokepal/blob/master/documentation/changeuser.jpg" width="600">
+
+
+
+
+
 

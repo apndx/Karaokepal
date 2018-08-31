@@ -23,7 +23,7 @@ Pääkäyttäjänä
 
 1. Tiedon selaaminen
 
-Listaukset kaikista lauluista ja käyttäjistä tehdään aakkosjärjestyksessä nimen mukaan käyttäen valmiita query-metodeja. Samoin tehdään tarkistukset olemassaolevista lauluista ja artisteista, ettei niitä lisätessä synny duplikaatteja.
+Listaukset kaikista lauluista ja käyttäjistä tehdään aakkosjärjestyksessä nimen mukaan käyttäen valmiita Flaskin SQLAlchemyn query-metodeja. Samoin tehdään tarkistukset olemassaolevista lauluista ja artisteista, ettei niitä lisätessä synny duplikaatteja.
 
 
 ```Tiedon hakemisessa käytettyjä SQL-kyselyitä:
@@ -41,32 +41,61 @@ SELECT * from Song ORDER BY song.songname;
 
 Listaus käyttäjän omista lauluista järjestettynä laulamiskertojen mukaan:
 
-SELECT Song.id, Song.songname, Accountsongs.count, Song.description FROM Song, Accountsongs
-                      WHERE Song.id = Accountsongs.song_id
-                      AND Accountsongs.account_id = ?
-                      ORDER BY Accountsongs.count DESC (?=<parametrinä annettu account.id>
+SELECT Song.id, Song.songname, Accountsongs.count, Song.description 
+		FROM Song, Accountsongs
+                WHERE Song.id = Accountsongs.song_id
+                AND Accountsongs.account_id = ?
+                ORDER BY Accountsongs.count DESC (?=<parametrinä annettu account.id>
 
 
 Laululle etsitään artisti:
 
-SELECT Artist.id FROM Artist
-                      LEFT JOIN artistsongs ON Artist.id = artistsongs.artist_id 
-                      LEFT JOIN Song ON Song.id = artistsongs.song_id
-                      WHERE Song.id = ? (?=<parametrinä annettu song.id>)
+SELECT Artist.id 
+		FROM Artist
+                LEFT JOIN artistsongs ON Artist.id = artistsongs.artist_id 
+                LEFT JOIN Song ON Song.id = artistsongs.song_id
+                WHERE Song.id = ? (?=<parametrinä annettu song.id>)
 
 
-Kuinka monella käyttäjällä on valittuna laulu, listaus suosituimmuusjärjestyksessä:
+Kuinka monella käyttäjällä on valittuna laulu. Laulusta ja artistista haetaan nimi, listaus on suosituimmuusjärjestyksessä:
 
-SELECT Song.songname, COUNT(accountsongs.song_id) AS howmany FROM Song 
-		      LEFT JOIN accountsongs ON Song.id = accountsongs.song_id 
-		      LEFT JOIN Account ON Account.id = accountsongs.account_id 
-		      GROUP BY Song.id ORDER BY howmany DESC;
+SELECT Song.songname, Artist.artistname, 
+		COUNT(DISTINCT account.id)
+		FROM Song
+		LEFT JOIN Accountsongs ON Song.id = accountsongs.song_id
+		LEFT JOIN artistsongs ON artistsongs.song_id = Song.id
+		LEFT JOIN Artist ON Artist.id = artistsongs.artist_id
+		LEFT JOIN Account ON Account.id = accountsongs.account_id
+		GROUP BY Song.songname, Artist.artistname
+		ORDER BY COUNT(DISTINCT account.id) DESC
+
+
+Listataan laulut niin, että tuloksessa löytyy laulun nimi ja artistin nimi, lista aakkosjärjestyksessä laulun nimen mukaan:
+
+SELECT Song.id, Song.songname, Artist.artistname FROM Song
+		LEFT JOIN artistsongs ON Song.id = artistsongs.song_id 
+		LEFT JOIN Artist ON Artist.id = artistsongs.artist_id
+		ORDER BY Song.songname
+
+
+Tarkistetaan, onko tietokannassa jo tietty laulu yhdistettynä tiettyyn artistiin:
+
+SELECT * FROM artistsongs
+                WHERE artistsongs.artist_id = ?
+                AND artistsongs.song_id = ? (?=<parametrinä annettut artist.id ja song.id> 
+
+
+Tarkistetaan, onko kirjautuneella käyttäjällä jo tietty laulu:
+
+SELECT * FROM Accountsongs
+                WHERE accountsongs.account_id = ?
+                AND accountsongs.song_id = ? (?=<parametrinä annettut account.id ja song.id> 
 
 ```
 
 2. Tiedon lisääminen
 
-Sovellukseen voi lisätä peruskäyttäjiä ja lauluja, tiedon lisäys ja lisäykseen liittyvät duplikaattitarkistukset tehdään käyttäen Flaskin toimintoja.
+Sovellukseen voi lisätä peruskäyttäjiä ja lauluja, tiedon lisäys ja lisäykseen liittyvät duplikaattitarkistukset tehdään käyttäen Flaskin SQLAlchemyn toimintoja.
 
 Kun sovellus on otettu käyttöön ja käynnistetty ensimmäisen kerran, tulisi siihen lisätä admin -käyttäjä suoraan tietokantaan (nimi, tunnus ja salasana- kohtiin täytetään halutut tiedot):
 
@@ -88,7 +117,7 @@ Tietojen muokkauksessa käytetään jälleen Flaskista löytyviä ominaisuuksia.
 Muutetaan laulun nimeä ja kuvausta:
 
 UPDATE Song SET songname = '?', description = '?' 
-			WHERE song.id = ?; (? = <parametrinä annettu erikseen nimi, kuvaus ja song.id >)
+		WHERE song.id = ?; (? = <parametrinä annettu erikseen nimi, kuvaus ja song.id >)
 
 ```
 
@@ -106,7 +135,7 @@ DELETE FROM Song WHERE song.id = ?; (? = <parametrinä annettu song.id >)
 
 5. Kirjautuminen
 
-Käyttäjät voivat kirjautua sovellukseen. Sovelluksen näkymä muuttuu sen mukaan, onko kirjauduttu ollenkaan, tai onko kirjautuja admin vai peruskäyttäjä. Kirjautuminen on toteutettu Flaskin ominaisuuksilla. Toiminnot on myös autorisoitu niin, että niihin ei pääse käsiksi myöskään suorasta osoitteesta ilman oikean tyyppistä kirjatumista.
+Käyttäjät voivat kirjautua sovellukseen. Sovelluksen näkymä muuttuu sen mukaan, onko kirjauduttu ollenkaan, tai onko kirjautuja admin vai peruskäyttäjä. Kirjautuminen on toteutettu Flaskin ominaisuuksilla. Toiminnot on myös autorisoitu niin, että niihin ei pääse käsiksi myöskään suorasta osoitteesta ilman oikean tyyppistä kirjautumista.
 
 
 ## Tietokantataulut

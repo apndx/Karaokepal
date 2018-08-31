@@ -54,7 +54,7 @@ Tällä hetkellä artisti -taulun käsittely ohjelmassa on hyvin suppeaa, se on 
 
 ### Käyttäjän tiedot
 
-Tällä hetkellä käyttäjällä ei ole mahdollisuutta salasanansa muuttamiseen. Käyttäjän omien laujen listauksissa lauluissa voisi näkyä myös artisti, sekä käyttäjän käytössä olevat omat lisätiedot laulusta. Käyttäjän lauluihin ei ole myöskään vielä toteutettu sävellajitoiveen tallennusta.
+Tällä hetkellä käyttäjällä ei ole mahdollisuutta salasanansa muuttamiseen. Käyttäjän omien laulujen listauksissa lauluissa voisi näkyä myös artisti, sekä käyttäjän käytössä olevat omat lisätiedot laulusta. Käyttäjän lauluihin ei ole myöskään vielä toteutettu sävellajitoiveen tallennusta.
 
 ### Ulkoasu
 

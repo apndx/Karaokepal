@@ -1,7 +1,7 @@
 # application/auth/views.py
 
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 
 from application import app, db, login_required
 from application.auth.models import User
@@ -114,5 +114,26 @@ def user_delete(user_id):
     return redirect(url_for("admintools")) 
 
 @app.route("/admintools/", methods=["GET"])
+@login_required(role="ADMIN")
 def admintools():
     return render_template("auth/admintools.html", users = User.query.all())
+
+@app.route("/admintools/<user_id>/status/", methods=["GET","POST"])
+@login_required(role="ADMIN")
+def change_user_status(user_id):
+
+    user = User.query.get(user_id)
+    form= UserForm(obj=user)
+
+    if user == current_user:
+        return render_template("auth/admintools.html", users = User.query.all(), form=form,
+                               user_error = "You cannot remove your own admin status")
+
+    if user.user_role == "admin":
+        user.user_role = "basicuser"
+    else:
+        user.user_role = "admin"
+
+    db.session().commit()
+
+    return redirect(url_for("admintools")) 

@@ -38,3 +38,11 @@ class User(Base):
             return ["ADMIN"]
         else:
             return ["BASIC"]
+
+    @staticmethod
+    def change_user_status():
+
+        if self.user_role == 'admin':
+            serf.user_role = 'basicuser'
+        else:
+            serf.user_role = 'admin'    

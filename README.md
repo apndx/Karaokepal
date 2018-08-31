@@ -9,24 +9,30 @@ Ohjelmalla on peruskäyttäjiä ja pääkäyttäjiä, pääkäyttäjillä on tä
 
 Palveluun voi lisätä artisteja ja lauluja. Lauluihin voi lisätä kuvauksen ja linkin, jonka takaa löytyy lisätietona esimerkiksi sanat, äänite tai video.
 
-Käyttäjät voivat selata tietokantaan lisättyjä lauluja, niitä voi hakea nimen tai artistin perusteella. Laulut voi myös hakea suosituimmuusjärjestykseen sen mukaan, kuinka monta kertaa käyttäjät ovat laulaneet jotain laulua.
+Pääsivulta löytyy listaus lauluista aakkosjärjestyksessä, lauluista pääsee myös kunkin laulun kohdalta lisätietosivulle. Tilastosivulla löytyy listaus kaikista lauluista suosituimmuusjärjestyksessä.
 
-Käyttäjät voivat luoda oman listauksen suosikkilauluistaan. Omaan listaan voi merkitä kun on käynyt laulamassa jotain, ja tästä koostuu tilastotietoa siitä montako kertaa kutakin laulua on laulettu. Käyttäjä voi myös merkitä omaan listaansa laulusta kuvauksen, jota voi muutella tarpeen mukaan.
+Käyttäjät voivat luoda oman listauksen suosikkilauluistaan, omaan listaan voi lisätä lauluja pääsivun laululistasta. Omaan listaan voi merkitä kun on käynyt laulamassa jotain, ja tästä koostuu tilastotietoa siitä montako kertaa kutakin laulua on laulettu. 
 
 ## Toimintoja:
 
+### Käyttäjätunnus ja kirjautuminen
+
 * Käyttäjän luominen
-* Käyttäjän poistaminen
-* Kirjautuminen
-* Laulun lisääminen
-* Laulun tietojen muuttaminen
-* Laulun poistaminen
-* Laulujen listaus
-* Artistin lisääminen
-* Laulun lisäys käyttäjän listaan
-* Laulukerran merkitseminen 
-* Laulun poisto käyttäjän listalta
-* Käyttäjän laululistan näyttäminen
+* Kirjautuminen - toiminnot muuttuvat sen mukaan onko kirjautunut ollenkaan, ja onko pääkäyttäjä vai tavallinen käyttäjä
+
+### Laulutietokanta
+
+* Laulujen listaus - pääsivun lista aakkosjärjestyksessä, tilastosivulla suosituimmuusjärjestyksessä
+* Laulujen lisäys - artisti lisätään samalla jos sitä ei vielä löydy
+* Laulun tietojen muuttaminen - muokkaustoimintoon pääsee pääsivun laululistasta
+* Laulun poistaminen - tämä toiminto on näkyvissä vain pääkäyttäjälle pääsivun laululistasta
+
+### Käyttäjäkohtaiset ominaisuudet
+
+* Laulun lisäys käyttäjän listaan - käyttäjä voi lisätä laulun listaansa pääsivulta
+* Omien laulujen listaus - omaan listaan pääsee yläpalkin oikean reunan linkistä
+* Laulukerran merkitseminen - omassa listassa voi pitää kirjaa laulukerroista, omat laulut on järjestetty suosituimmuusjärjestykseen
+* Admin-tunnuksilla löytyy mahdollisuus muuttaa käyttäjän nimeä ja salasanaa
 
 ## Linkit sovellukseen ja dokumentaatioon
 
@@ -39,13 +45,13 @@ Käyttäjät voivat luoda oman listauksen suosikkilauluistaan. Omaan listaan voi
 
 ## Testikäyttäjät
 
-## Tavallinen käyttäjä (basicuser)
+### Tavallinen käyttäjä (basicuser)
 
 * Username: elvis
 * Password: test
 * Name: Test Elvis
 
-## Adminkäyttäjä (admin)
+### Adminkäyttäjä (admin)
 
 * Username: sitrus	
 * Password: sitrus	

@@ -7,20 +7,26 @@
   </tr>  
 {% if userlist is defined %}
 <tr>
-<th>Name</th><th>Username</th>
+<th>Name</th><th>Username</th><th>Role</th>
 </tr>
 <tr>
   {% for user in userlist %}
-<td> {{user.name}} </td> <td> {{user.username}} </td> 
+<td> {{user.name}} </td> <td> {{user.username}} </td> <td> {{user.user_role}} </td> 
 <td><a href="{{ url_for('user_change', user_id=user.id) }}">Show</a>
-</td>  
+</td>
 <td>
-    <form method="POST" action="{{ url_for('user_delete', user_id=user.id) }}">
-      <input type="submit" value="Delete"/>
+    <form method="POST" action="{{ url_for('change_user_status', user_id=user.id) }}">
+      <input type="submit" value="Change status"/>
     </form>
-  </td> 
+  </td>  
+<td>
+  <form method="POST" action="{{ url_for('user_delete', user_id=user.id) }}">
+    <input type="submit" value="Delete"/>
+  </form>
+</td> 
 </tr>  
 {% endfor %}
 {% endif %}
 </table>
+<p>{{user_error}}</p>
 {% endblock %}

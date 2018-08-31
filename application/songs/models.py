@@ -1,5 +1,6 @@
 # application/songs/models.py
 
+import os
 from application import db
 from application.models import Base
 from application.auth import models
@@ -45,12 +46,22 @@ class Song(Base):
     @staticmethod
     def how_many_have_this():
 
-        stmt = text("SELECT Song.songname, Artist.artistname, COUNT(DISTINCT account.id) FROM Song"
-                    " LEFT JOIN Accountsongs ON Song.id = accountsongs.song_id "
-                    " LEFT JOIN artistsongs ON artistsongs.song_id = Song.id"
-                    " LEFT JOIN Artist ON Artist.id = artistsongs.artist_id"
-                    " LEFT JOIN Account ON Account.id = accountsongs.account_id "
-                    " GROUP BY Song.id ORDER BY COUNT(DISTINCT account.id) DESC ")
+        if os.environ.get("HEROKU"):
+        
+            stmt = text("SELECT Song.songname, COUNT(accountsongs.song_id) AS howmany FROM Song "
+                        "  LEFT JOIN accountsongs ON Song.id = accountsongs.song_id "
+                        " LEFT JOIN accountsongs ON Song.id = accountsongs.song_id "
+                        " LEFT JOIN Account ON Account.id = accountsongs.account_id "
+                        " GROUP BY Song.id  ORDER BY howmany DESC ")
+
+        else:    
+
+            stmt = text("SELECT Song.songname, Artist.artistname, COUNT(DISTINCT account.id) FROM Song"
+                        " LEFT JOIN Accountsongs ON Song.id = accountsongs.song_id "
+                        " LEFT JOIN artistsongs ON artistsongs.song_id = Song.id"
+                        " LEFT JOIN Artist ON Artist.id = artistsongs.artist_id"
+                        " LEFT JOIN Account ON Account.id = accountsongs.account_id "
+                        " GROUP BY Song.id ORDER BY COUNT(DISTINCT account.id) DESC ")
 
         res = db.engine.execute(stmt)
 

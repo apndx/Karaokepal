@@ -58,7 +58,6 @@ class Song(Base):
             for row in res:
                 response.append({"name":row[0], "howmany":row[1]})
 
-
         else:    
 
             stmt = text("SELECT Song.songname, Artist.artistname, COUNT(DISTINCT account.id) FROM Song"

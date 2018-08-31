@@ -108,10 +108,19 @@ DELETE FROM Song WHERE song.id = ?; (? = <parametrinä annettu song.id >)
 
 Käyttäjät voivat kirjautua sovellukseen. Sovelluksen näkymä muuttuu sen mukaan, onko kirjauduttu ollenkaan, tai onko kirjautuja admin vai peruskäyttäjä. Kirjautuminen on toteutettu Flaskin ominaisuuksilla. Toiminnot on myös autorisoitu niin, että niihin ei pääse käsiksi myöskään suorasta osoitteesta ilman oikean tyyppistä kirjatumista.
 
-## Tietokantataulujen luontilauseet
 
-Tilastosivulla käytettävissä tiedoissa on indeksointi (laulun nimi, artistin nimi)
+## Tietokantataulut
 
+Tilastosivulla käytettävissä tiedoissa on tietokanna indeksointi (laulun nimi, artistin nimi)
+Tauluihin on toteutettu toimintoja seuraavasti (Create, Read, Update, Delete):
+
+Song - CRUD
+Artist - CR
+Account - CRUD
+Accountsong - CU (näistä saa myös listauksen käyttäjäkohtaisesti)
+Artistsong - CRD (poisto tapahtuu song poiston yhteydessä)
+
+## Luotilauseet
 
 CREATE TABLE song (
 	id INTEGER NOT NULL, 
@@ -123,6 +132,7 @@ CREATE TABLE song (
 );
 
 CREATE INDEX ix_song_songname ON song (songname);
+
 CREATE TABLE artist (
 	id INTEGER NOT NULL, 
 	date_created DATETIME, 
@@ -133,6 +143,7 @@ CREATE TABLE artist (
 );
 
 CREATE INDEX ix_artist_artistname ON artist (artistname);
+
 CREATE TABLE account (
 	id INTEGER NOT NULL, 
 	date_created DATETIME, 
@@ -157,6 +168,7 @@ CREATE TABLE accountsongs (
 	FOREIGN KEY(account_id) REFERENCES account (id), 
 	FOREIGN KEY(song_id) REFERENCES song (id)
 );
+
 CREATE TABLE artistsongs (
 	song_id INTEGER NOT NULL, 
 	artist_id INTEGER NOT NULL, 

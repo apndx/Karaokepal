@@ -22,13 +22,13 @@ Kun käyttäjätunnus on luotu, voi sovellukseen kirjautua kirjautumissivun kaut
 
 ## Kaikkien tietokannan laulujen listaus
 
-Jos käyttäjä on kirjautunut, näytetään kuvan mukainen laululistaus, muuten listataan ainoastaan laulun nimet. Laulun nimen perässä on linkki, josta pääsee tarkastelemaan laulun tietoja tarkemmin, sekä muokkaamaan laulun nimeä ja kuvausta. Choose- napista laulun voi valita omaan laululistaan ja delete napista voi poistaa laulun kokonaan tietokannasta.
+Jos käyttäjä on kirjautunut, näytetään kuvan mukainen laululistaus, muuten listataan ainoastaan laulun nimet. Laulun nimen perässä on linkki, josta pääsee tarkastelemaan laulun tietoja tarkemmin, sekä muokkaamaan laulun nimeä ja kuvausta. Add to my list- napista laulun voi valita omaan laululistaan ja delete napista (joka löytyy vain pää käyttäjän näkymässä) voi poistaa laulun kokonaan tietokannasta.
 
-<img src="https://github.com/apndx/Karaokepal/blob/master/documentation/login.jpg" width="600">
+<img src="https://github.com/apndx/Karaokepal/blob/master/documentation/songlist.jpg" width="600">
 
 ## Laulun lisääminen tietokantaan
 
-Kirjautunut käyttäjä voi lisätä lauluja tietokantaan. Lisäyslomakkeelle kirjoitetaan laulun nimi, vapaaehtoinen kuvaus ja artisti. Lomake tarkistaa onko laulun nimi jo tietokannassa, samannimistä laulua ei lisätä uudelleen, vaan tässä tilanteessa tulee virheilmoitus. Myös artistista tehdään tarkistus, niin ettei samaa artistia lisätä useaan kertaan.
+Kirjautunut käyttäjä voi lisätä lauluja tietokantaan. Lisäyslomakkeelle kirjoitetaan laulun nimi, vapaaehtoinen kuvaus ja artisti. Lomake tarkistaa onko löytyykö laulu jo lomakkeelle merkityllä artistilla. Samaa laulua ei lisätä uudelleen, joten tässä tilanteessa tulee virheilmoitus. Myös artistista tehdään tarkistus, niin ettei samaa artistia lisätä useaan kertaan.
 
 <img src="https://github.com/apndx/Karaokepal/blob/master/documentation/addsong.jpg" width="600">
 
@@ -40,7 +40,7 @@ Kun laululistasta valitaan jonkin laulun kohdalta linkki "Show", näytetään si
 
 ## Omien laulujen listaus
 
-Kirjautunut käyttäjä pääsee linkistä "Your songs" listaukseen, jossa listataan kaikki käyttäjän itselleen valitsemat laulut. Lauluja pääsee lisäämään listalle "List all songs" linkin kautta löytyvästä näkymästä.
+Kirjautunut käyttäjä pääsee linkistä "Your songs" listaukseen, jossa listataan kaikki käyttäjän itselleen valitsemat laulut. Lauluja pääsee lisäämään listalle "List all songs" linkin kautta löytyvästä näkymästä. Omaan listaan voi merkitä kunkin laulun laulukertoja napista "Sing it!"
 
 <img src="https://github.com/apndx/Karaokepal/blob/master/documentation/mylist.jpg" width="600">
 

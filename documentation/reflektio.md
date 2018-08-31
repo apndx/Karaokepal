@@ -32,16 +32,30 @@
 
 ## Toteutuminen
 
-Projektin toteutus tehtiin hyvin kiireisellä aikataululla, käytännössä aikaa oli yhteensä kuusi viikkoa. Jo alussa pyrin karsimaan toteutuksen tietokantatauluja ja toimintoja, ja miettimään ohjelmastani mahdollisimman yksinkertaisen. Käytännössä kuitenkin selvisi, että myös osa näistä toiminnoista tulisi karsiutumaan lopulta pois käytettävissä olevan ajan rajallisuuden vuoksi.
+Projektin toteutus tehtiin hyvin kiireisellä aikataululla, käytännössä aikaa oli yhteensä kuusi viikkoa. Jo alussa pyrin karsimaan toteutuksen tietokantatauluja ja toimintoja, ja miettimään ohjelmastani mahdollisimman yksinkertaisen. Käytännössä kuitenkin selvisi, että myös osa näistä toiminnoista tulisi karsiutumaan lopulta pois käytettävissä olevan ajan rajallisuuden vuoksi. Itselläni meni myös paljon aikaa uusien asioiden omaksumiseen ja kokonaisuuden hahmottamiseen.
 
-Yllämainituista toiminnallisuuksista jäi toteuttamatta laulukerran merkitseminen ja laulun poistaminen käyttäjän listalta. Myös käyttötapauksiin merkityt hakutoiminnallisuudet jäivät haaveeksi.
+Yllämainituista toiminnallisuuksista jäi toteuttamatta laulun poistaminen käyttäjän listalta. Myös käyttötapauksiin merkityt hakutoiminnallisuudet jäivät haaveeksi.
 
-Ohjelmassa on kuitenkin toimiva runko, ja sitä on helppo halutessaan laajentaa ja kehittää eteenpäin.
+Ohjelmassa on kuitenkin toimiva runko, ja sitä on helppo halutessaan laajentaa ja kehittää eteenpäin. Projektin edetessä oli myös palkitsevaa huomata, että ohjesivujen tuijottelun sijaan pystyi jo jossain määrin itse päättelemään, miten uusia toiminnallisuuksia voisi toteuttaa.
 
 ## Sovelluksen rajoitteet
 
-Tällä hetkellä laulun nimen muokkaaminen jälkikäteen mahdollistaa nimen vaihtamisen sellaiseen laulunnimen ja artistin yhdistelmään, joka jo löytyy tietokannasta. Suoraan tällaisia lauluja ei voi lisätä useampia.
+Tällä hetkellä laulun nimen muokkaaminen jälkikäteen mahdollistaa nimen vaihtamisen sellaiseen laulunnimen ja artistin yhdistelmään, joka jo löytyy tietokannasta. Laulun lisäystoiminnolla tällaisten yhdistelmien lisääminen ei ole mahdollista.
 
 ## Sovelluksen puuttuvat ominaisuudet 
 
-Sovelluksessa ei ole hakutoiminnallisuuksia, vaan kaikki tieto esitetään listauksina. Tämä muodostuu pian ongelmaksi tietomäärien kasvaessa. Sivutus olisikin hyvä saada toimimaan. Lisäksi olisi hyödyllistä, että listauksia voisi tehdä erilaisilla kriteereillä. Tällä hetkellä artisti -taulun käsittely ohjelmassa on hyvin suppeaa, se on käytössä pelkästää laulun lisätietona. Tällä hetkellä käyttäjällä ei ole mahdollisuutta salasanansa muuttamiseen, se olisi hyvä lisätä. Laulujen kuvauksissa kuvauksiin lisätyt linkit voisivat myös toimia linkkeinä, nyt ne näkyvät vain tekstinä. Käyttäjän omissa lauluissa voisi näkyä myös artisti.
+### Tiedon haku ja näyttäminen
+
+Sovelluksessa ei ole hakutoiminnallisuuksia, vaan kaikki tieto esitetään listauksina. Tämä muodostuu pian ongelmaksi tietomäärien kasvaessa. Myös listausten sivutus olisi hyvä lisäominaisuus. Lisäksi olisi hyödyllistä, että listauksia voisi tehdä erilaisilla kriteereillä. Laulujen kuvauksissa kuvauksiin lisätyt linkit voisivat myös toimia linkkeinä, tällä hetkellä ne näkyvät vain tekstinä.
+
+### Artisti
+
+Tällä hetkellä artisti -taulun käsittely ohjelmassa on hyvin suppeaa, se on käytössä pelkästää laulun lisätietona. Hyviä lisäominaisuuksia olisi artistin kuvauksen näyttäminen. Tietokannan rakenteen puolesta olisi myös mahdollista, että laululla on useampi artisti, tätä ei kuitenkaan ole toistaiseksi ohjelmassa hyödynnetty.
+
+### Käyttäjän tiedot
+
+Tällä hetkellä käyttäjällä ei ole mahdollisuutta salasanansa muuttamiseen. Käyttäjän omien laujen listauksissa lauluissa voisi näkyä myös artisti, sekä käyttäjän käytössä olevat omat lisätiedot laulusta. Käyttäjän lauluihin ei ole myöskään vielä toteutettu sävellajitoiveen tallennusta.
+
+### Ulkoasu
+
+Projektissa pyrin keskittymään siihen, että olennaiset toiminnot toimivat mahdollisimman luotettavasti. Ulkoasun puolesta tyydyin toteuttamaan valmisratkaisun, ja varsinkin laulun muutossivun asettelu kaipaisi hiomista.

@@ -46,31 +46,33 @@ class Song(Base):
     @staticmethod
     def how_many_have_this():
 
-        if os.environ.get("HEROKU"):
+        # if os.environ.get("HEROKU"):
         
-            stmt = text("SELECT Song.songname, COUNT(accountsongs.song_id) AS howmany FROM Song "
-                        " LEFT JOIN accountsongs ON Song.id = accountsongs.song_id "
-                        " LEFT JOIN Account ON Account.id = accountsongs.account_id "
-                        " GROUP BY Song.id  ORDER BY howmany DESC ")
+        #     stmt = text("SELECT Song.songname, COUNT(accountsongs.song_id) AS howmany FROM Song "
+        #                 " LEFT JOIN accountsongs ON Song.id = accountsongs.song_id "
+        #                 " LEFT JOIN Account ON Account.id = accountsongs.account_id "
+        #                 " GROUP BY Song.id  ORDER BY howmany DESC ")
 
-            res = db.engine.execute(stmt)
-            response = []
-            for row in res:
-                response.append({"name":row[0], "howmany":row[1]})
+        #     res = db.engine.execute(stmt)
+        #     response = []
+        #     for row in res:
+        #         response.append({"name":row[0], "howmany":row[1]})
 
-        else:    
+        # else:    
 
-            stmt = text("SELECT Song.songname, Artist.artistname, COUNT(DISTINCT account.id) FROM Song"
-                            " LEFT JOIN Accountsongs ON Song.id = accountsongs.song_id "
-                            " LEFT JOIN artistsongs ON artistsongs.song_id = Song.id"
-                            " LEFT JOIN Artist ON Artist.id = artistsongs.artist_id"
-                            " LEFT JOIN Account ON Account.id = accountsongs.account_id "
-                            " GROUP BY Song.id ORDER BY COUNT(DISTINCT account.id) DESC ")
+        stmt = text("SELECT Song.songname, Artist.artistname, COUNT(DISTINCT account.id)"
+                        " FROM Song"
+                        " LEFT JOIN Accountsongs ON Song.id = accountsongs.song_id"
+                        " LEFT JOIN artistsongs ON artistsongs.song_id = Song.id"
+                        " LEFT JOIN Artist ON Artist.id = artistsongs.artist_id"
+                        " LEFT JOIN Account ON Account.id = accountsongs.account_id"
+                        " GROUP BY Song.songname, Artist.artistname"
+                        " ORDER BY COUNT(DISTINCT account.id) DESC")
 
-            res = db.engine.execute(stmt)
-            response = []
-            for row in res:
-                response.append({"name":row[0], "artist":row[1], "howmany":row[2]})
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"name":row[0], "artist":row[1], "howmany":row[2]})
 
         return response
 

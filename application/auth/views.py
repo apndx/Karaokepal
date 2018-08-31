@@ -69,7 +69,6 @@ def admin_form():
 @app.route("/admintools/", methods=["GET", "POST"])    
 @login_required(role="ADMIN")
 def admin_tools():
-
     return redirect(url_for("songs_index")) 
   
 @app.route("/admintools/<user_id>/", methods=["GET"])
@@ -105,7 +104,6 @@ def change_user_form(user_id):
 @app.route("/admintools/<user_id>/delete/", methods=["POST"])
 @login_required(role="ADMIN")
 def user_delete(user_id):
-
     user = User.query.get(user_id)
     form = UserForm(obj=user) # the form is prefilled with data
 

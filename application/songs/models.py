@@ -43,22 +43,9 @@ class Song(Base):
 
         return response
 
+    # Returns a list of songnames with their artistnames and a count of how many users have it
     @staticmethod
-    def how_many_have_this():
-
-        # if os.environ.get("HEROKU"):
-        
-        #     stmt = text("SELECT Song.songname, COUNT(accountsongs.song_id) AS howmany FROM Song "
-        #                 " LEFT JOIN accountsongs ON Song.id = accountsongs.song_id "
-        #                 " LEFT JOIN Account ON Account.id = accountsongs.account_id "
-        #                 " GROUP BY Song.id  ORDER BY howmany DESC ")
-
-        #     res = db.engine.execute(stmt)
-        #     response = []
-        #     for row in res:
-        #         response.append({"name":row[0], "howmany":row[1]})
-
-        # else:    
+    def how_many_have_this():  
 
         stmt = text("SELECT Song.songname, Artist.artistname, COUNT(DISTINCT account.id)"
                         " FROM Song"
@@ -121,7 +108,7 @@ class Song(Base):
         else: 
             return True 
 
-    # this method is for adding a new song to the database
+    # this method is a help method for adding a new song to the database
     @staticmethod
     def new_song_dbs(song, artist):
         db.session().add(song)

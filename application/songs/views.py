@@ -11,7 +11,6 @@ from application.artists.models import Artist
 @app.route("/songs", methods=["GET"])
 def songs_index():
 
-    #return render_template("songs/list.html", songs = Song.query.order_by(Song.songname).all())
     return render_template("songs/list.html", songs = Song.list_songs_with_artistname())
 
 @app.route("/songs/new/")
